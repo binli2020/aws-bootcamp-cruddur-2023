@@ -14,3 +14,10 @@
 * Created a free-tier Lucid Chart account
 * Created a HoneyComb account using my GitHub account
 * Created a Rollbar account using my GitHub account
+
+##### Week 0 tasks
+* Reviewed Week 0 - Live Streamed Video
+* Watched Chirag's Week 0 - Spend Considerations
+* Created a Billing Alarm & Budget
+* Created an AWS admin user
+* Used AWS CloudShell
