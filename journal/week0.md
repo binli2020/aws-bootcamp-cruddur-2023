@@ -83,3 +83,9 @@ You should see something like this:
 }
 ```
 
+### Continue Week 0 tasks
+* Finished watching security related YT video and quiz. (27/2)
+* Finished watching Lucid related YT video and drawing the [logical architecture diagram](https://lucid.app/lucidchart/be914bd1-dfc7-47be-9874-40595505c521/edit?viewport_loc=-976%2C-112%2C2255%2C1031%2C0_0&invitationId=inv_14c871df-0c35-494e-b9b3-c025ee06bbbf) (28/2)
+![Screenshot of the Logical Architecture Diagram](https://user-images.githubusercontent.com/71969513/221689458-7595652a-34f4-4719-952b-8b516c159c40.png)
+
+* 
