@@ -16,3 +16,7 @@
   * `linuxserver.io`
     * A bunch of docker images
     * A reference for learning to write Dockerfiles
+  * Layers in Docker images
+    * Docker image is created based on other existing images
+    * This construct a layers structure.
+    * The final image is a merge and union of all these layers, like you view the layers from the top. 
