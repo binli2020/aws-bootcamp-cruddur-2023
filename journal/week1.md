@@ -11,3 +11,8 @@
     * Inspect the network in your browser, take a screenshot covering all info, i.e. URL, the Console, the request Headers/Response etc.
     * Use `print` to find where it breaks
     * Use Debugger (i.e use `pdb` in Python)
+
+* Watching week 1 live YT video
+  * `linuxserver.io`
+    * A bunch of docker images
+    * A reference for learning to write Dockerfiles
