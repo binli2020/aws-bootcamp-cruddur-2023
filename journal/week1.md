@@ -24,3 +24,11 @@
     * Virtual machines run on a hypervisor layer on a host OS, it has its own guest OS.
     * Container, instead, runs on a container daemon, and share the OS with the host OS.
 ![image](https://user-images.githubusercontent.com/71969513/222669927-6e4322ff-417b-4d1d-b544-d60174e52e1b.png)
+  * Commands to build docker image. Inside the backend-flash directory, run this command
+  ```bash
+  docker build -t backend-flask .
+  ```
+  * Run docker container
+  ```bash
+  docker run --rm -p 4567:4567 -it -e FRONEND_URL='*' -e BACKEND_URL='*' backend-flask
+  ```
