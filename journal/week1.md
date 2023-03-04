@@ -32,3 +32,11 @@
   ```bash
   docker run --rm -p 4567:4567 -it -e FRONEND_URL='*' -e BACKEND_URL='*' backend-flask
   ```
+  * Learn Docker Compose
+    > A Docker Compose file is a YAML file that defines how Docker containers should behave in relation to each other. It is used to define a multi-container Docker application, where each container represents a separate component or service of the application.
+
+    > The functionality of a Docker Compose file is to define and configure the various components of a Docker application, including the containers, networks, and volumes. It allows developers to easily spin up and configure multiple containers with a single command, making it much easier to manage and deploy complex applications.
+
+    > The Docker Compose file specifies the configuration of the services that make up an application, such as the Docker image to use, environment variables, ports to expose, and volumes to mount. It can also define dependencies between services, such as one service depending on another service being started first.
+
+    > Using a Docker Compose file, developers can quickly define and deploy an entire application stack, including all necessary dependencies, in a repeatable and consistent way across different environments. This can greatly simplify the development, testing, and deployment of complex applications.
