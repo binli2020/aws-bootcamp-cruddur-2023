@@ -40,3 +40,6 @@
     > The Docker Compose file specifies the configuration of the services that make up an application, such as the Docker image to use, environment variables, ports to expose, and volumes to mount. It can also define dependencies between services, such as one service depending on another service being started first.
 
     > Using a Docker Compose file, developers can quickly define and deploy an entire application stack, including all necessary dependencies, in a repeatable and consistent way across different environments. This can greatly simplify the development, testing, and deployment of complex applications.
+  * Run docker compose
+    * Run `npm install` under `frontend-react-js` folder. This is for installing React.
+    * Run `docker compose up`. This is for running the two containers of frontend and backend.
