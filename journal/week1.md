@@ -12,7 +12,7 @@
     * Use `print` to find where it breaks
     * Use Debugger (i.e use `pdb` in Python)
 
-* Watching week 1 live YT video
+* Watched week 1 live YT video
   * `linuxserver.io`
     * A bunch of docker images
     * A reference for learning to write Dockerfiles
@@ -43,3 +43,6 @@
   * Run docker compose
     * Run `npm install` under `frontend-react-js` folder. This is for installing React.
     * Run `docker compose up`. This is for running the two containers of frontend and backend.
+* Watched YT video about Gitpod, Github CodeSpace, Cloud9 and CloudTrial
+  * > Cloud9 uses Amazon Elastic Compute Cloud (EC2) instances to provide the computing power needed to run the IDE. If you leave your Cloud9 instance running even when you're not actively using it, this can result in idle instances, which can lead to increased costs on your AWS account.
+  * When uses CloudTrial to record API request towards your AWS account and AWS resources, a few options need to be disabled to avoid charge.
