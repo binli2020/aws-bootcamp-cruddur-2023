@@ -37,7 +37,7 @@
 
     > The functionality of a Docker Compose file is to define and configure the various components of a Docker application, including the containers, networks, and volumes. It allows developers to easily spin up and configure multiple containers with a single command, making it much easier to manage and deploy complex applications.
 
-    > The Docker Compose file specifies the configuration of the services that make up an application, such as the Docker image to use, environment variables, ports to expose, and volumes to mount. It can also define dependencies between services, such as one service depending on another service being started first.
+    > The Docker Compose file specifies the configuration of the services that make up an application, such as the **Docker image** to use, **environment variables**, **ports** to expose, and **volumes** to mount. It can also define **dependencies between services**, such as one service depending on another service being started first.
 
     > Using a Docker Compose file, developers can quickly define and deploy an entire application stack, including all necessary dependencies, in a repeatable and consistent way across different environments. This can greatly simplify the development, testing, and deployment of complex applications.
   * Run docker compose
@@ -49,6 +49,17 @@
 * Watched YT video about Docker container security
   * Top 10 security best practices for Docer container
     ![image](https://user-images.githubusercontent.com/71969513/222949211-c6e7c84f-8b85-42ba-abad-34921aabe920.png)
+  * Snyk Open Source Github Walkthrough
+    * Connected my repo to Snyk, scanned vulnerabilities, found 6 critical and 26 high issues.
+    * Fixed the vulnerabilities by a PR from Snyk. Now it is much better. ![image](https://user-images.githubusercontent.com/71969513/223003202-b06caf16-0af2-4d0a-a440-76cdf4295e59.png)
+  * AWS **Secrets Manager** walk through
+    * > AWS Secrets Manager is a fully managed AWS service that enables you to easily rotate, manage, and retrieve secrets such as database credentials, API keys, OAuth tokens, and other sensitive data. Secrets Manager can help you protect access to applications, services, and IT resources without having to build or maintain custom code or scripts.
+    
+      > With AWS Secrets Manager, you can securely store and retrieve secrets using a simple API call, without needing to manage your own encryption keys. Secrets Manager provides encryption for secrets at rest and in transit, and can also automatically rotate secrets on a schedule that you define.
+     
+      > In addition, Secrets Manager integrates with other AWS services such as AWS Lambda, AWS CloudFormation, and AWS Elastic Beanstalk, making it easy to securely manage secrets across your entire AWS environment.
+      
+      > Overall, AWS Secrets Manager can help you improve security and compliance by enabling you to easily manage secrets and access controls, without the need for custom code or manual processes.
 * Learn more about **Docker Architecture**
   * https://docs.docker.com/get-started/overview/#docker-architecture ![image](https://user-images.githubusercontent.com/71969513/222997662-541e6319-e05c-4a6c-89c6-434bb04643ef.png)
   * > The **Docker daemon**
