@@ -60,6 +60,9 @@
       > In addition, Secrets Manager integrates with other AWS services such as AWS Lambda, AWS CloudFormation, and AWS Elastic Beanstalk, making it easy to securely manage secrets across your entire AWS environment.
       
       > Overall, AWS Secrets Manager can help you improve security and compliance by enabling you to easily manage secrets and access controls, without the need for custom code or manual processes.
+  * AWS Inspector go through
+    * Amazon Inspector is an automated vulnerability management service that continually scans workloads for software vulnerabilities and unintended network exposure.
+
 * Learn more about **Docker Architecture**
   * https://docs.docker.com/get-started/overview/#docker-architecture ![image](https://user-images.githubusercontent.com/71969513/222997662-541e6319-e05c-4a6c-89c6-434bb04643ef.png)
   * > The **Docker daemon**
