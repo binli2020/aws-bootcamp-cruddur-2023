@@ -49,3 +49,20 @@
 * Watched YT video about Docker container security
   * Top 10 security best practices for Docer container
     ![image](https://user-images.githubusercontent.com/71969513/222949211-c6e7c84f-8b85-42ba-abad-34921aabe920.png)
+* Learn more about **Docker Architecture**
+  * https://docs.docker.com/get-started/overview/#docker-architecture ![image](https://user-images.githubusercontent.com/71969513/222997662-541e6319-e05c-4a6c-89c6-434bb04643ef.png)
+  * > The **Docker daemon**
+    > The Docker daemon (dockerd) listens for Docker API requests and manages Docker objects such as images, containers, networks, and volumes. A daemon can also communicate with other daemons to manage Docker services.
+
+  * > **The Docker client**
+    > The Docker client (docker) is the primary way that many Docker users interact with Docker. When you use commands such as docker run, the client sends these commands to dockerd, which carries them out. The docker command uses the Docker API. The Docker client can communicate with more than one daemon.
+
+  * > **Docker Desktop**
+    > Docker Desktop is an easy-to-install application for your Mac, Windows or Linux environment that enables you to build and share containerized applications and microservices. Docker Desktop includes the Docker daemon (dockerd), the Docker client (docker), Docker Compose, Docker Content Trust, Kubernetes, and Credential Helper. For more information, see Docker Desktop.
+
+  * > **Docker registries**
+    > A Docker registry stores Docker images. Docker Hub is a public registry that anyone can use, and Docker is configured to look for images on Docker Hub by default. You can even run your own private registry.
+
+    > When you use the docker pull or docker run commands, the required images are pulled from your configured registry. When you use the docker push command, your image is pushed to your configured registry.
+
+  * 
