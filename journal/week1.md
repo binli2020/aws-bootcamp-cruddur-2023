@@ -88,4 +88,6 @@
           cd frontend-react-js
           npm i
     ```
-  * 
+  * Document the Notification Endpoint for the OpenAI Document
+  * Write a Flask Backend Endpoint for Notifications
+  * Write a React Page for Notifications
