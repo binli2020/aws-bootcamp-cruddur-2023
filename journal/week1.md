@@ -79,4 +79,13 @@
 
     > When you use the docker pull or docker run commands, the required images are pulled from your configured registry. When you use the docker push command, your image is pushed to your configured registry.
 
+* Watching YT video about adding notification feature in flask and react codes
+  * readme.com is a good tool to transfer your API document to an interactive developer hub. 👍
+  * Everytime launch Gitpod, need to do `npm install` inside the frontend folder. So I added the following to the .gitpod.yml. It works.
+    ```yaml
+      - name: react-js
+        command: |
+          cd frontend-react-js
+          npm i
+    ```
   * 
