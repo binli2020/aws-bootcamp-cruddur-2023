@@ -79,7 +79,7 @@
 
     > When you use the docker pull or docker run commands, the required images are pulled from your configured registry. When you use the docker push command, your image is pushed to your configured registry.
 
-* Watching YT video about adding notification feature in flask and react codes
+* Watched YT video about adding notification feature in flask and react codes
   * readme.com is a good tool to transfer your API document to an interactive developer hub. 👍
   * Everytime launch Gitpod, need to do `npm install` inside the frontend folder. So I added the following to the .gitpod.yml. It works.
     ```yaml
@@ -91,3 +91,16 @@
   * Document the Notification Endpoint for the OpenAI Document
   * Write a Flask Backend Endpoint for Notifications
   * Write a React Page for Notifications
+* Watching YT video for adding Dynamo DB and PostgreSQL to the docker compose
+  * About the `volume` section in the docker-compose.yml
+    ```
+    volumes:
+      db:
+        driver: local
+    ```
+    ChatGPT explains it:
+    > In a Docker Compose file, the `volumes` section is used to define named volumes that can be **shared by multiple containers**. The `db` in this case is the name of the volume.
+
+    > The `driver: local` line specifies the type of volume driver that should be used for this volume. In this case, local is the default volume driver that uses the host filesystem to store data. This means that any data written to this volume by a container will be persisted on the host filesystem and can be accessed by other containers that use the same volume.
+
+    > In summary, this section defines a named volume named db that will be stored on the **host filesystem** using the local driver.
