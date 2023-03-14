@@ -94,7 +94,7 @@
 * Watching YT video for adding Dynamo DB and PostgreSQL to the docker compose
   * About the `volume` section in the docker-compose.yml
     ```
-    volumes:
+    volumes:sh
       db:
         driver: local
     ```
@@ -104,3 +104,7 @@
     > The `driver: local` line specifies the type of volume driver that should be used for this volume. In this case, local is the default volume driver that uses the host filesystem to store data. This means that any data written to this volume by a container will be persisted on the host filesystem and can be accessed by other containers that use the same volume.
 
     > In summary, this section defines a named volume named db that will be stored on the **host filesystem** using the local driver.
+  * The command to run postgres in local environment in gitpod
+    ```sh
+    psql -Upostgres --host localhost
+    ```
