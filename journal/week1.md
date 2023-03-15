@@ -108,3 +108,10 @@
     ```sh
     psql -Upostgres --host localhost
     ```
+    
+* Use `git tag` for easier grading
+  * https://www.atlassian.com/git/tutorials/inspecting-a-repository/git-tag
+  * Git concept of tagging
+  > Tags are ref's that point to specific points in Git history. Tagging is generally used to capture a point in history that is used for a marked version release (i.e. v1.0.1). A tag is like a branch that doesn’t change. Unlike branches, tags, after being created, have no further history of commits. 
+  * Different kind of tags
+  * How to create tags, listing all tags, deleting tags, sharing tags
