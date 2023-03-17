@@ -93,5 +93,6 @@ The header x-honeycomb-team is your API key. Your service name will be used as t
     docker compose up
     ```
     * Visit the backend url `<base_url>/api/activities/home`, and observe traces appearing in Honeycomb UI.
+    ![image](https://user-images.githubusercontent.com/71969513/225817916-9a35cd06-13e8-4f49-8ec7-77515963e956.png)
 
   
