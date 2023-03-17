@@ -112,4 +112,4 @@ The header x-honeycomb-team is your API key. Your service name will be used as t
     ![image](https://user-images.githubusercontent.com/71969513/225839045-b408d524-80d6-434b-abb3-588ef5d48844.png)
 
     ![image](https://user-images.githubusercontent.com/71969513/225838867-5ec3f718-6c48-4303-99ee-6c397a178623.png)
-
+  * [Doc](https://docs.honeycomb.io/working-with-your-data/tracing/)
