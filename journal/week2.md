@@ -39,7 +39,8 @@
   - 'development' container needs a base image with more utilities installed
   - 'production' container needs a slimmer base image without, i.e. vim, ssh, to make it smaller in size and securer.
 * To **add OpenTelemetry instrucmentation to Python code**, 
-  * need install these python libraries. So add the following to the `requirements.txt`
+  1. Install Packages
+    * need install these python libraries. So add the following to the `requirements.txt`
     ```sh
     opentelemetry-api 
     opentelemetry-sdk 
@@ -47,8 +48,9 @@
     opentelemetry-instrumentation-flask 
     opentelemetry-instrumentation-requests
     ```
-    Then run `pip install -r requirements.txt` to install the libraries in the terminal.
-  * Add codes into `app.py`
+    * Then run `pip install -r requirements.txt` to install the libraries in the terminal.
+  2. Initialize
+    * Add codes into `app.py`
     ```python
     from opentelemetry import trace
     from opentelemetry.instrumentation.flask import FlaskInstrumentor
@@ -56,7 +58,40 @@
     from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
     from opentelemetry.sdk.trace import TracerProvider
     from opentelemetry.sdk.trace.export import BatchSpanProcessor
+    
+    # Initialize tracing and an exporter that can send data to Honeycomb
+    provider = TracerProvider()
+    processor = BatchSpanProcessor(OTLPSpanExporter())
+    provider.add_span_processor(processor)
+    trace.set_tracer_provider(provider)
+    tracer = trace.get_tracer(__name__)
+    
+    app = Flask(__name__)
+    
+    # Initialize automatic instrumentation with Flask
+    FlaskInstrumentor().instrument_app(app)
+    RequestsInstrumentor().instrument()
     ```
+  3. Configure and Run
+    * Configure OpenTelemetry to send events to Honeycomb using environment variables.
+The header x-honeycomb-team is your API key. Your service name will be used as the Service Dataset in Honeycomb, which is where data is stored. The service name is specified by OTEL_SERVICE_NAME.
+    * Add to the `docker-compose.yml`
+    ```yaml
+    OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
+    OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
+    OTEL_SERVICE_NAME: "backend-flask"
 
+    ```
+    * In terminal, set env variable `HONEYCOMB_API_KEY`
+    ```sh
+    export HONEYCOMB_API_KEY=<api_key>
+    gp env HONEYCOMB_API_KEY="<api_key>"  # for gitpos set this env var for each workspace automatically
+    ```
+    * Run these to restart the containers
+    ```sh
+    docker compose down
+    docker compose up
+    ```
+    * Visit the backend url `<base_url>/api/activities/home`, and observe traces appearing in Honeycomb UI.
 
   
