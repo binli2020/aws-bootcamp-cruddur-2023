@@ -38,7 +38,7 @@
 * Jessica: use different Dockerfile for 'development' and 'production' containers.
   - 'development' container needs a base image with more utilities installed
   - 'production' container needs a slimmer base image without, i.e. vim, ssh, to make it smaller in size and securer.
-* To **add OpenTelemetry instrucmentation to Python code**, 
+* To **add OpenTelemetry instrucmentation to Python code**
   1. Install Packages
     * need install these python libraries. So add the following to the `requirements.txt`
     ```sh
@@ -95,4 +95,21 @@ The header x-honeycomb-team is your API key. Your service name will be used as t
     * Visit the backend url `<base_url>/api/activities/home`, and observe traces appearing in Honeycomb UI.
     ![image](https://user-images.githubusercontent.com/71969513/225817916-9a35cd06-13e8-4f49-8ec7-77515963e956.png)
 
-  
+* How to observe via Trace in HoneyComb
+  * Add multiple level span and add attributes for a span
+    ```python
+    tracer = trace.get_tracer("home.activities")
+
+    class HomeActivities:
+      def run():
+        with tracer.start_as_current_span("home-activities-mock-data"):
+          now = datetime.now(timezone.utc).astimezone()
+          span = trace.get_current_span()
+          span.set_attribute("app.now", now.isoformat())
+    ```
+  * Observe latency in traces. Learn from [here](https://www.honeycomb.io/resources/intro-to-o11y-topic-11-using-group-by-with-a-heatmap)
+    * Use `HEATMAP(duration_ms)` and `P90(duration_ms)` or `MAX(duration_ms)` as VISUALIZE and GROUP BY `http.url` to see latency of the traces.
+    ![image](https://user-images.githubusercontent.com/71969513/225839045-b408d524-80d6-434b-abb3-588ef5d48844.png)
+
+    ![image](https://user-images.githubusercontent.com/71969513/225838867-5ec3f718-6c48-4303-99ee-6c397a178623.png)
+
