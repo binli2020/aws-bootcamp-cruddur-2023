@@ -38,11 +38,25 @@
 * Jessica: use different Dockerfile for 'development' and 'production' containers.
   - 'development' container needs a base image with more utilities installed
   - 'production' container needs a slimmer base image without, i.e. vim, ssh, to make it smaller in size and securer.
-* To **add OpenTelemetry instrucmentation to Python code**, need install these python libraries. So add the following to the `requirements.txt`
-  ```sh
-  opentelemetry-api 
-  opentelemetry-sdk 
-  opentelemetry-exporter-otlp-proto-http 
-  opentelemetry-instrumentation-flask 
-  opentelemetry-instrumentation-requests
-  ```
+* To **add OpenTelemetry instrucmentation to Python code**, 
+  * need install these python libraries. So add the following to the `requirements.txt`
+    ```sh
+    opentelemetry-api 
+    opentelemetry-sdk 
+    opentelemetry-exporter-otlp-proto-http 
+    opentelemetry-instrumentation-flask 
+    opentelemetry-instrumentation-requests
+    ```
+    Then run `pip install -r requirements.txt` to install the libraries in the terminal.
+  * Add codes into `app.py`
+    ```python
+    from opentelemetry import trace
+    from opentelemetry.instrumentation.flask import FlaskInstrumentor
+    from opentelemetry.instrumentation.requests import RequestsInstrumentor
+    from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+    from opentelemetry.sdk.trace import TracerProvider
+    from opentelemetry.sdk.trace.export import BatchSpanProcessor
+    ```
+
+
+  
