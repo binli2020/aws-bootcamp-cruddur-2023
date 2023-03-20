@@ -155,4 +155,10 @@ The header x-honeycomb-team is your API key. Your service name will be used as t
           }
       }
       ```
-   
+      ![image](https://user-images.githubusercontent.com/71969513/226273644-153a5073-d106-4019-a625-f0d10fd92d45.png)
+
+   * Create a sampling rule
+     ```sh
+     aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
+     ```
+   * 
