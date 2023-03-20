@@ -159,6 +159,27 @@ The header x-honeycomb-team is your API key. Your service name will be used as t
 
    * Create a sampling rule
      ```sh
-     aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
+     $ aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
+     {
+          "SamplingRuleRecord": {
+              "SamplingRule": {
+                  "RuleName": "Cruddur",
+                  "RuleARN": "arn:aws:xray:ap-southeast-2:461075076403:sampling-rule/Cruddur",
+                  "ResourceARN": "*",
+                  "Priority": 9000,
+                  "FixedRate": 0.1,
+                  "ReservoirSize": 5,
+                  "ServiceName": "backend-flask",
+                  "ServiceType": "*",
+                  "Host": "*",
+                  "HTTPMethod": "*",
+                  "URLPath": "*",
+                  "Version": 1,
+                  "Attributes": {}
+              },
+              "CreatedAt": "2023-03-20T07:37:58+00:00",
+              "ModifiedAt": "2023-03-20T07:37:58+00:00"
+          }
+      }
      ```
    * 
