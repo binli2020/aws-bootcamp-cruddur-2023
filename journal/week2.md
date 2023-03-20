@@ -182,4 +182,23 @@ The header x-honeycomb-team is your API key. Your service name will be used as t
           }
       }
      ```
+   * Add daemon service to Docker Compose
+    ```yml
+    xray-daemon:
+      image: "amazon/aws-xray-daemon"
+      environment:
+        AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+        AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+        AWS_REGION: "ap-southeast-2"
+      command:
+        - "xray -o -b xray-daemon:2000"
+      ports:
+        - 2000:2000/udp
+    ```
+    Add two env vars to backend-flask in `docker-compose.yml` file
+
+    ```yml
+    AWS_XRAY_URL: "*4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}*"
+    AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
+    ```
    * 
