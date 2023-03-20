@@ -117,7 +117,12 @@ The header x-honeycomb-team is your API key. Your service name will be used as t
 * Watched YT video about Observability Security Considerations by Ashish. Finished the quiz.
 * Watching YT video about AWS X-Ray
   * Boto3: AWS SDK for Python
-  * Actually we don't use boto3 directly. We use a Python library `aws-xray-sdk`.
+  * Actually we don't use boto3 directly. We use a Python library `aws-xray-sdk`. So add it to the `requirements.txt`
+    ```sh
+    ... ...
+    opentelemetry-instrumentation-requests
+    aws-xray-sdk
+    ```
   * What is a middleware?
     * > In a web backend framework, middleware refers to a software component that sits between the server and the application logic, providing a set of common services or functions that can be shared across different parts of the application.
 
@@ -126,3 +131,28 @@ The header x-honeycomb-team is your API key. Your service name will be used as t
       > Middleware functions can be chained together to create a pipeline that processes requests and responses in a specific order. Each middleware function in the pipeline can modify the request or response, or terminate the pipeline by returning a response to the client.
 
       > Web frameworks such as Express.js, Django, and Ruby on Rails all provide built-in middleware that can be used out-of-the-box, and developers can also create their own custom middleware to handle specific application requirements.
+   * Add code in `app.py` to instruct for X-RAY
+     ```python
+     from aws_xray_sdk.core import xray_recorder
+     from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
+
+     xray_url = os.getenv("AWS_XRAY_URL")
+     xray_recorder.configure(service='Cruddur', dynamic_naming=xray_url)
+     XRayMiddleware(app, xray_recorder)
+     ```
+   * Use AWS CLI to create a group for X-RAY
+     ```sh
+     $ aws xray create-group    --group-name "Cruddur"    --filter-expression "service(\"backend-flask\")"
+      {
+          "Group": {
+              "GroupName": "Cruddur",
+              "GroupARN": "arn:aws:xray:ap-southeast-2:461075076403:group/Cruddur/ELVUCCCTCVRE7VMACDBN3ST2HQ3NVW73EGPW6JUYMDJZH3VKJ3ZA",
+              "FilterExpression": "service(\"backend-flask\")",
+              "InsightsConfiguration": {
+                  "InsightsEnabled": false,
+                  "NotificationsEnabled": false
+              }
+          }
+      }
+      ```
+   
