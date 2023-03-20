@@ -118,3 +118,11 @@ The header x-honeycomb-team is your API key. Your service name will be used as t
 * Watching YT video about AWS X-Ray
   * Boto3: AWS SDK for Python
   * Actually we don't use boto3 directly. We use a Python library `aws-xray-sdk`.
+  * What is a middleware?
+    * > In a web backend framework, middleware refers to a software component that sits between the server and the application logic, providing a set of common services or functions that can be shared across different parts of the application.
+
+      > Middleware is used to handle tasks such as authentication, logging, caching, and request/response processing. It allows developers to modularize their code and separate concerns, making it easier to maintain and scale their applications.
+
+      > Middleware functions can be chained together to create a pipeline that processes requests and responses in a specific order. Each middleware function in the pipeline can modify the request or response, or terminate the pipeline by returning a response to the client.
+
+      > Web frameworks such as Express.js, Django, and Ruby on Rails all provide built-in middleware that can be used out-of-the-box, and developers can also create their own custom middleware to handle specific application requirements.
