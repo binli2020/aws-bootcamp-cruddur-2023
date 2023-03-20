@@ -113,5 +113,8 @@ The header x-honeycomb-team is your API key. Your service name will be used as t
 
     ![image](https://user-images.githubusercontent.com/71969513/225838867-5ec3f718-6c48-4303-99ee-6c397a178623.png)
   * [Doc: working with your data:tracing](https://docs.honeycomb.io/working-with-your-data/tracing/)
-* Watched YT video about Spending Considerations by Chirag
-* Watching YT video about Observability Security Considerations by Ashish
+* Watched YT video about Spending Considerations by Chirag. Finished the quiz.
+* Watched YT video about Observability Security Considerations by Ashish. Finished the quiz.
+* Watching YT video about AWS X-Ray
+  * Boto3: AWS SDK for Python
+  * Actually we don't use boto3 directly. We use a Python library `aws-xray-sdk`.
