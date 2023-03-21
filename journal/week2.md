@@ -201,4 +201,33 @@ The header x-honeycomb-team is your API key. Your service name will be used as t
     AWS_XRAY_URL: "*4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}*"
     AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
     ```
-   * 
+   * Add segments to X-RAY
+   > The AWS X-Ray SDK for Python provides a predefined decorator that can be used to instrument Flask application endpoints. The decorator is called `xray_recorder.capture()` and it can be used to automatically trace your endpoint function with an X-Ray segment.
+
+   > Here's an example of how to use the xray_recorder.capture() decorator:
+   ```python
+   from flask import Flask
+   from aws_xray_sdk.core import xray_recorder
+
+   app = Flask(__name__)
+
+   @app.route('/example_endpoint')
+   @xray_recorder.capture('example_endpoint')
+   def example_endpoint():
+       # Your code here
+       return 'Hello, World!'
+   ```
+   > In this example, we apply the xray_recorder.capture() decorator to our example_endpoint() function. We provide a name for the segment as an argument to the decorator.
+   > When the endpoint function is called, the xray_recorder.capture() decorator automatically creates a new X-Ray segment with the provided name, records the start and end times of the segment, and captures any subsegments or metadata associated with the endpoint's execution.
+   > The xray_recorder.capture() decorator can be a convenient way to add X-Ray tracing to your Flask application without having to manually create and manage X-Ray segments in your code.
+     * Add the decorator to the home activity endpoint
+     ```python
+     @app.route("/api/activities/home", methods=['GET'])
+     @xray_recorder.capture('home_endpoint')
+     def data_home():
+       data = HomeActivities.run()
+       return data, 200
+     ```
+     ![image](https://user-images.githubusercontent.com/71969513/226574042-1e1a0370-facc-40c0-ab44-ba8f0b1aae39.png)
+
+
