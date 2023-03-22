@@ -113,9 +113,9 @@ The header x-honeycomb-team is your API key. Your service name will be used as t
 
     ![image](https://user-images.githubusercontent.com/71969513/225838867-5ec3f718-6c48-4303-99ee-6c397a178623.png)
   * [Doc: working with your data:tracing](https://docs.honeycomb.io/working-with-your-data/tracing/)
-* Watched YT video about Spending Considerations by Chirag. Finished the quiz.
-* Watched YT video about Observability Security Considerations by Ashish. Finished the quiz.
-* Watching YT video about AWS X-Ray
+## Watched YT video about Spending Considerations by Chirag. Finished the quiz.
+## Watched YT video about Observability Security Considerations by Ashish. Finished the quiz.
+## Watching YT video about AWS X-Ray
   * Boto3: AWS SDK for Python
   * Actually we don't use boto3 directly. We use a Python library `aws-xray-sdk`. So add it to the `requirements.txt`
     ```sh
@@ -227,7 +227,7 @@ The header x-honeycomb-team is your API key. Your service name will be used as t
        def data_home():
          data = HomeActivities.run()
          return data, 200
-     ```
+       ```
      ![image](https://user-images.githubusercontent.com/71969513/226574042-1e1a0370-facc-40c0-ab44-ba8f0b1aae39.png)
      * No need to call `xray_recorder.begin_segment` explicitely when using `xray_recorder.capture()` decorator
      > It's worth noting that using begin_segment() and end_segment() can be more error-prone and less convenient than using the capture() decorator or the in_segment() context manager. These methods automatically manage the lifecycle of segments and subsegments for you, making it easier to trace the execution of your code without introducing potential bugs.
@@ -243,7 +243,7 @@ The header x-honeycomb-team is your API key. Your service name will be used as t
          subsegment_mock.put_metadata('key', dict, 'namespace')
        ```
 
-* Send logs to AWS CloudWatch Logs - following [YT video](https://www.youtube.com/watch?v=ipdFizZjOF4&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=34)
+## Send logs to AWS CloudWatch Logs - following [YouTube video](https://www.youtube.com/watch?v=ipdFizZjOF4&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=34)
   * [What is AWS CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html)
     > You can use Amazon CloudWatch Logs to monitor, store, and access your log files from Amazon Elastic Compute Cloud (Amazon EC2) instances, AWS CloudTrail, Route 53, and other sources.
 
