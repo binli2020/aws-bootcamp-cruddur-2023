@@ -242,6 +242,8 @@ The header x-honeycomb-team is your API key. Your service name will be used as t
          }
          subsegment_mock.put_metadata('key', dict, 'namespace')
        ```
+     ![image](https://user-images.githubusercontent.com/71969513/226806671-72d34e7c-fdb5-41f0-8bb5-4ed4435d2e47.png)
+
 
 ## Send logs to AWS CloudWatch Logs - following [YouTube video](https://www.youtube.com/watch?v=ipdFizZjOF4&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=34)
   * [What is AWS CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html)
