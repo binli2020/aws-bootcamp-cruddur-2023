@@ -43,9 +43,9 @@
   * Run docker compose
     * Run `npm install` under `frontend-react-js` folder. This is for installing React.
     * Run `docker compose up`. This is for running the two containers of frontend and backend.
-* Watched YT video about Gitpod, Github CodeSpace, Cloud9 and CloudTrial
+* Watched YT video about Gitpod, Github CodeSpace, Cloud9 and CloudTrail
   * > Cloud9 uses Amazon Elastic Compute Cloud (EC2) instances to provide the computing power needed to run the IDE. If you leave your Cloud9 instance running even when you're not actively using it, this can result in idle instances, which can lead to increased costs on your AWS account.
-  * When uses CloudTrial to record API request towards your AWS account and AWS resources, a few options need to be disabled to avoid charge.
+  * When uses CloudTrail to record API request towards your AWS account and AWS resources, a few options need to be disabled to avoid charge.
 * Watched YT video about Docker container security
   * Top 10 security best practices for Docer container
     ![image](https://user-images.githubusercontent.com/71969513/222949211-c6e7c84f-8b85-42ba-abad-34921aabe920.png)
