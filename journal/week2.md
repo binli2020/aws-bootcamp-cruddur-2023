@@ -3,12 +3,6 @@
 ## Learn **what is observability**
 * https://www.honeycomb.io/resources/intro-to-o11y-topic-1-what-is-observability
 * Watched other Training Videos
-* [The Three Pillars of Observability](https://www.oreilly.com/library/view/distributed-systems-observability/9781492033431/ch04.html)
-    > **Event Logs**: An **event log** is an immutable, timestamped record of discrete events that happened over time. Event logs in general come in three forms but are fundamentally the same: a timestamp and a payload of some context. The three forms are: Plaintext, Structured (i.e. JSON), Binary.
-
-    > **Metrics**: **Metrics** are a numeric representation of data measured over intervals of time. Metrics can harness the power of mathematical modeling and prediction to derive knowledge of the behavior of a system over intervals of time in the present and future.
-
-    > **Tracing**: A **trace** is a representation of a series of causally related distributed events that encode the end-to-end request flow through a distributed system.
 
 * Document: [Learn About Observability](https://docs.honeycomb.io/concepts/learning-about-observability/)
     - [What is Observability? ](https://docs.honeycomb.io/concepts/learning-about-observability/#what-is-observability)
@@ -16,6 +10,13 @@
     - [How Can You Improve Observability?](https://docs.honeycomb.io/concepts/learning-about-observability/#how-can-you-improve-observability)
       > Improving software observability requires two things: the ability to capture telemetry data with a lot of runtime context, and the ability to query that data iteratively in order to find new insights.
     * distributed traces: the path of execution through your distributed system.
+
+* [The Three Pillars of Observability](https://www.oreilly.com/library/view/distributed-systems-observability/9781492033431/ch04.html)
+    > **Event Logs**: An **event log** is an immutable, timestamped record of discrete events that happened over time. Event logs in general come in three forms but are fundamentally the same: a timestamp and a payload of some context. The three forms are: Plaintext, Structured (i.e. JSON), Binary.
+
+    > **Metrics**: **Metrics** are a numeric representation of data measured over intervals of time. Metrics can harness the power of mathematical modeling and prediction to derive knowledge of the behavior of a system over intervals of time in the present and future.
+
+    > **Tracing**: A **trace** is a representation of a series of causally related distributed events that encode the end-to-end request flow through a distributed system.
 
 ## **What is OpenTelemetry**
 > OpenTelemetry is an open-source observability framework used to instrument, generate, collect, and export telemetry data (metrics, traces, and logs) from cloud-native applications. The project is a merger of two existing observability projects, OpenCensus and OpenTracing, and is now the default observability framework for cloud-native applications in the Cloud Native Computing Foundation (CNCF).
