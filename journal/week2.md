@@ -4,10 +4,10 @@
 * https://www.honeycomb.io/resources/intro-to-o11y-topic-1-what-is-observability
 * Watched other Training Videos
 * Document: [Learn About Observability](https://docs.honeycomb.io/concepts/learning-about-observability/)
-  - [What is Observability? ](https://docs.honeycomb.io/concepts/learning-about-observability/#what-is-observability)
-    > Observability is about being able to ask arbitrary questions about your environment without having to know ahead of time what you wanted to ask.
-  - [How Can You Improve Observability?](https://docs.honeycomb.io/concepts/learning-about-observability/#how-can-you-improve-observability)
-    > Improving software observability requires two things: the ability to capture telemetry data with a lot of runtime context, and the ability to query that data iteratively in order to find new insights.
+    - [What is Observability? ](https://docs.honeycomb.io/concepts/learning-about-observability/#what-is-observability)
+      > Observability is about being able to ask arbitrary questions about your environment without having to know ahead of time what you wanted to ask.
+    - [How Can You Improve Observability?](https://docs.honeycomb.io/concepts/learning-about-observability/#how-can-you-improve-observability)
+      > Improving software observability requires two things: the ability to capture telemetry data with a lot of runtime context, and the ability to query that data iteratively in order to find new insights.
     * distributed traces: the path of execution through your distributed system.
 
 ## **What is OpenTelemetry**
@@ -17,9 +17,10 @@
 
 > OpenTelemetry supports three main types of telemetry data:
 
-  1. Metrics: numerical measurements of the behavior and performance of the application and its underlying infrastructure, such as CPU usage, memory usage, and response time.
-  2. Traces: a detailed record of the path that a transaction takes through an application, including the time spent in each operation and any errors encountered.
-  3. Logs: detailed records of events that occur within an application, including application-level events and infrastructure-level events such as server logs.
+> 1. Metrics: numerical measurements of the behavior and performance of the application and its underlying infrastructure, such as CPU usage, memory usage, and response time.
+> 2. Traces: a detailed record of the path that a transaction takes through an application, including the time spent in each operation and any errors encountered.
+> 3. Logs: detailed records of events that occur within an application, including application-level events and infrastructure-level events such as server logs.
+
 > By using OpenTelemetry, developers can gain better visibility into the behavior and performance of their applications in production. They can use this data to identify performance issues, diagnose errors, and optimize their applications for better performance and reliability.
 
 ## What does "instrument their applications with telemetry data" mean?
@@ -259,7 +260,7 @@ The header x-honeycomb-team is your API key. Your service name will be used as t
 > CloudWatch Logs is a log management service built into AWS. It is conceptually similar to services like Splunk, Datadog, and Loggly, but is more lightweight, cheaper, and tightly integrated with the rest of AWS.
 
 > Watchtower, in turn, is a lightweight adapter between the Python logging system and CloudWatch Logs. It uses the boto3 AWS SDK, and lets you plug your application logging directly into CloudWatch without the need to install a system-wide log collector like awscli-cwlogs and round-trip your logs through the instance’s syslog. It aggregates logs into batches to avoid sending an API request per each log message, while guaranteeing a delivery deadline (60 seconds by default).
-> 
+
 ### Steps to use Watchtower to send logs to AWS CloudWatch Logs
 1. Add `watchtower` to `requirements.txt`
     ```sh
@@ -322,3 +323,8 @@ The header x-honeycomb-team is your API key. Your service name will be used as t
     ```sh
     docker compose up
     ```
+6. Perform an API request by i.e. visiting an API endpoint. In AWS CloudWatch Logs under group "cruddur", observe the logs present.
+    ![image](https://user-images.githubusercontent.com/71969513/227075960-204bf1df-7fec-4057-8da8-394d4ed8b7d0.png)
+
+    ![image](https://user-images.githubusercontent.com/71969513/227075835-351b9149-7bc7-4f28-937d-f85c2f1073b3.png)
+
