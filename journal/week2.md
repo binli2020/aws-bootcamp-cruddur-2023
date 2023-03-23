@@ -262,41 +262,63 @@ The header x-honeycomb-team is your API key. Your service name will be used as t
 > 
 ### Steps to use Watchtower to send logs to AWS CloudWatch Logs
 1. Add `watchtower` to `requirements.txt`
-  ```sh
-  # For sending logs to AWS CloudWatch Logs
-  watchtower
-  ```
+    ```sh
+    # For sending logs to AWS CloudWatch Logs
+    watchtower
+    ```
+
+    1.1. Run this command in terminal to install the libraries for local development
+    ```sh
+    pip install -r requirements.txt
+    ```
 2. Add these environment variables in `docker-compose.yml` for the related service `backend-flask`
-  ```yml
-  services:
+    ```yml
+    services:
     backend-flask:
       environment:
         AWS_DEFAULT_REGION: "${AWS_DEFAULT_REGION}"
         AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
         AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
-  ```
-  > Passing AWS_REGION doesn't seems to get picked up by boto3 so pass default region instead
-3. Add the following code in `app.py` to configure the logger handler to use CloudWatch
-  ```python
-  import watchtower
-  import logging
-  from time import strftime
-  ```
-  ```python
-  LOGGER = logging.getLogger(__name__)
-  LOGGER.setLevel(logging.DEBUG) 
-  console_handler = logging.StreamHandler()
-  cw_handler = watchtower.CloudWatchLogHandler(log_group="cruddur")
-  LOGGER.addHandler(console_handler)
-  LOGGER.addHandler(cw_handler)
-  ```
-4. Add the following code in `app.py` to log at post-process stage of each request
-  > In Flask, @app.after_request is a decorator that allows you to register a function to be called after a request has been processed, but before the response is sent back to the client.
+    ```
+    > Passing AWS_REGION doesn't seems to get picked up by boto3 so pass default region instead
 
-  ```python
-  @app.after_request
-  def after_request(response):
+    2.1 Set environment variables in the local bash terminal
+    ```sh
+    export AWS_DEFAULT_REGION=<aws_region_name>
+    export AWS_ACCESS_KEY_ID=<aws_access_key>
+    export AWS_SECRET_ACCESS_KEY=<aws_secret_access_key>
+    ```
+    Tell Gitpod to remember these environment variables when relaunching our workspaces
+    ```sh
+    gp env AWS_DEFAULT_REGION=<aws_region_name>
+    gp env AWS_ACCESS_KEY_ID=<aws_access_key>
+    gp env AWS_SECRET_ACCESS_KEY=<aws_secret_access_key>
+    ```
+3. Add the following code in `app.py` to configure the logger handler to use CloudWatch
+    ```python
+    import watchtower
+    import logging
+    from time import strftime
+    ```
+    ```python
+    LOGGER = logging.getLogger(__name__)
+    LOGGER.setLevel(logging.DEBUG) 
+    console_handler = logging.StreamHandler()
+    cw_handler = watchtower.CloudWatchLogHandler(log_group="cruddur")
+    LOGGER.addHandler(console_handler)
+    LOGGER.addHandler(cw_handler)
+    ```
+4. Add the following code in `app.py` to log at post-process stage of each request
+    > In Flask, @app.after_request is a decorator that allows you to register a function to be called after a request has been processed, but before the response is sent back to the client.
+
+    ```python
+    @app.after_request
+    def after_request(response):
       timestamp = strftime('[%Y-%b-%d %H:%M]')
       LOGGER.error('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme, request.full_path, response.status)
       return response
-  ```
+    ```
+5. Run this command in terminal to start the application
+    ```sh
+    docker compose up
+    ```
