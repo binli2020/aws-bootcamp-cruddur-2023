@@ -328,3 +328,116 @@ The header x-honeycomb-team is your API key. Your service name will be used as t
 
     ![image](https://user-images.githubusercontent.com/71969513/227075835-351b9149-7bc7-4f28-937d-f85c2f1073b3.png)
 
+## Integrate Rollbar to Flask application
+### What is [Rollbar](https://rollbar.com/)
+> Rollbar is a cloud-based error tracking and debugging tool used in web development. It provides real-time monitoring of errors, exceptions, and logs that occur in web applications and services, allowing developers to quickly identify and fix issues before they cause problems for users.
+
+> Rollbar integrates with various programming languages and frameworks, including Ruby, Python, PHP, Java, JavaScript, and others, making it a versatile tool for web developers working with different technologies. When an error occurs, Rollbar captures information such as the error message, the stack trace, and the context in which the error occurred, allowing developers to quickly diagnose and fix the problem.
+
+> In addition to error tracking, Rollbar also provides features such as deployment tracking, release tracking, and custom alerts, allowing developers to stay on top of changes and potential issues in their codebase. Overall, Rollbar can be a valuable tool for any web development team looking to improve their application's stability and performance.
+
+### Instrument Flask code with a Rollbar Flask SDK
+1. Sign up on [Rollbar](https://rollbar.com/) and create a project
+
+Create a project
+![image](https://user-images.githubusercontent.com/71969513/227211705-bb9d2879-54ee-48f9-842e-4f3f2490844e.png)
+
+Integrate SDK
+![image](https://user-images.githubusercontent.com/71969513/227211911-9b4e8002-a9a7-44f1-b8df-3163032bfe14.png)
+
+Get the rollbar access token
+There is a piece of code appear. The access token is included in the code. i.e.
+```python
+... ...
+@app.before_first_request
+def init_rollbar():
+    """init rollbar module"""
+    rollbar.init(
+        # access token
+        '4eb17e5998684d899fe6ec03c3a7d5be',
+        # environment name
+        'production',
+        # server root directory, makes tracebacks prettier
+        root=os.path.dirname(os.path.realpath(__file__)),
+        # flask already sets up logging
+        allow_logging_basic_config=False)
+
+    # send exceptions from `app` to rollbar, using flask's signal system.
+    got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
+
+... ...
+```
+The project appears as "Configured"
+
+![image](https://user-images.githubusercontent.com/71969513/227213342-002f1569-cb25-4ac5-8575-f7129d76405e.png)
+
+2. Install Flask and blinker dependencies.
+Add two libraries `blinker` and `rollbar` to `requirements.txt`
+```sh
+# For Rollbar
+blinker
+rollbar
+```
+Run this command in terminal to install the libraries for local development
+```sh
+pip install -r requirements.txt
+```
+
+3. Add an environment variable in `docker-compose.yml` for the related service `backend-flask`
+```yml
+services:
+    backend-flask:
+      environment:
+        ROLLBAR_ACCESS_TOKEN: "${ROLLBAR_ACCESS_TOKEN}"
+```
+
+Set the environment variable in the local bash terminal
+```sh
+export ROLLBAR_ACCESS_TOKEN=<rollbar_access_token>
+```
+
+Tell Gitpod to remember the environment variable when relaunching our workspaces
+```sh
+gp env AWS_DEFAULT_REGION=<rollbar_access_token>
+```
+
+4. Instrument Flask code with a Rollbar Flask SDK
+Add the following code in `app.py`
+```python
+import os
+import rollbar
+import rollbar.contrib.flask
+from flask import got_request_exception
+```
+
+```python
+rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
+@app.before_first_request
+def init_rollbar():
+    """init rollbar module"""
+    rollbar.init(
+        # access token
+        rollbar_access_token,
+        # environment name
+        'production',
+        # server root directory, makes tracebacks prettier
+        root=os.path.dirname(os.path.realpath(__file__)),
+        # flask already sets up logging
+        allow_logging_basic_config=False)
+
+    # send exceptions from `app` to rollbar, using flask's signal system.
+    got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
+```
+
+In `app.py`, add an endpoint `/rollbar/test` for testing Rollbar
+```python
+@app.route('/rollbar/test')
+def rollbar_test():
+    rollbar.report_message('Hello World!', 'warning')
+    return "Hello World!"
+```
+
+### Perform an API request on the added endpoint and Observe the errors in Rollbar UI
+![image](https://user-images.githubusercontent.com/71969513/227215464-6f4b29ad-63be-4c14-9711-0cb6a61c068e.png)
+
+![image](https://user-images.githubusercontent.com/71969513/227215757-3b433402-5ec9-48fa-9a8b-a6cef47d6e43.png)
