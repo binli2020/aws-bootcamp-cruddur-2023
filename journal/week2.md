@@ -1,4 +1,4 @@
-# Week 2 — Distributed Tracing
+# Week 2 — Observability of Distributed System
 
 ## Learn **what is observability**
 * https://www.honeycomb.io/resources/intro-to-o11y-topic-1-what-is-observability
@@ -32,72 +32,72 @@
 
 > In summary, instrumenting an application with telemetry data means adding code to collect and transmit telemetry data to a monitoring or observability platform, which can then be used to gain insights into the behavior and performance of the application.
 
-## About log in to the app
+## About login to the app
 * Looks like everytime need to **sign up** with a dummy email and use `1234` as the reference code
  
-## Watching YT video of the living session
+## Watching YT video of the living session about using Honeycomb for Distributed Tracing
 * Jessica: use different Dockerfile for 'development' and 'production' containers.
   - 'development' container needs a base image with more utilities installed
   - 'production' container needs a slimmer base image without, i.e. vim, ssh, to make it smaller in size and securer.
 * To **add OpenTelemetry instrucmentation to Python code**
-  1. Install Packages
-    * need install these python libraries. So add the following to the `requirements.txt`
-    ```sh
-    opentelemetry-api 
-    opentelemetry-sdk 
-    opentelemetry-exporter-otlp-proto-http 
-    opentelemetry-instrumentation-flask 
-    opentelemetry-instrumentation-requests
-    ```
-    * Then run `pip install -r requirements.txt` to install the libraries in the terminal.
-  2. Initialize
-    * Add codes into `app.py`
-    ```python
-    from opentelemetry import trace
-    from opentelemetry.instrumentation.flask import FlaskInstrumentor
-    from opentelemetry.instrumentation.requests import RequestsInstrumentor
-    from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
-    from opentelemetry.sdk.trace import TracerProvider
-    from opentelemetry.sdk.trace.export import BatchSpanProcessor
-    
-    # Initialize tracing and an exporter that can send data to Honeycomb
-    provider = TracerProvider()
-    processor = BatchSpanProcessor(OTLPSpanExporter())
-    provider.add_span_processor(processor)
-    trace.set_tracer_provider(provider)
-    tracer = trace.get_tracer(__name__)
-    
-    app = Flask(__name__)
-    
-    # Initialize automatic instrumentation with Flask
-    FlaskInstrumentor().instrument_app(app)
-    RequestsInstrumentor().instrument()
-    ```
-  3. Configure and Run
-    * Configure OpenTelemetry to send events to Honeycomb using environment variables.
-The header x-honeycomb-team is your API key. Your service name will be used as the Service Dataset in Honeycomb, which is where data is stored. The service name is specified by OTEL_SERVICE_NAME.
-    * Add to the `docker-compose.yml`
-    ```yaml
-    OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
-    OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
-    OTEL_SERVICE_NAME: "backend-flask"
+    1. Install Packages
+        * need install these python libraries. So add the following to the `requirements.txt`
+        ```sh
+        opentelemetry-api 
+        opentelemetry-sdk 
+        opentelemetry-exporter-otlp-proto-http 
+        opentelemetry-instrumentation-flask 
+        opentelemetry-instrumentation-requests
+        ```
+        * Then run `pip install -r requirements.txt` to install the libraries in the terminal.
+    2. Initialize
+        * Add codes into `app.py`
+        ```python
+        from opentelemetry import trace
+        from opentelemetry.instrumentation.flask import FlaskInstrumentor
+        from opentelemetry.instrumentation.requests import RequestsInstrumentor
+        from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+        from opentelemetry.sdk.trace import TracerProvider
+        from opentelemetry.sdk.trace.export import BatchSpanProcessor
 
-    ```
-    * In terminal, set env variable `HONEYCOMB_API_KEY`
-    ```sh
-    export HONEYCOMB_API_KEY=<api_key>
-    gp env HONEYCOMB_API_KEY="<api_key>"  # for gitpos set this env var for each workspace automatically
-    ```
-    * Run these to restart the containers
-    ```sh
-    docker compose down
-    docker compose up
-    ```
-    * Visit the backend url `<base_url>/api/activities/home`, and observe traces appearing in Honeycomb UI.
-    ![image](https://user-images.githubusercontent.com/71969513/225817916-9a35cd06-13e8-4f49-8ec7-77515963e956.png)
+        # Initialize tracing and an exporter that can send data to Honeycomb
+        provider = TracerProvider()
+        processor = BatchSpanProcessor(OTLPSpanExporter())
+        provider.add_span_processor(processor)
+        trace.set_tracer_provider(provider)
+        tracer = trace.get_tracer(__name__)
+
+        app = Flask(__name__)
+
+        # Initialize automatic instrumentation with Flask
+        FlaskInstrumentor().instrument_app(app)
+        RequestsInstrumentor().instrument()
+        ```
+    3. Configure and Run
+        * Configure OpenTelemetry to send events to Honeycomb using environment variables.
+        The header x-honeycomb-team is your API key. Your service name will be used as the Service Dataset in Honeycomb, which is where data is stored. The service name is specified by OTEL_SERVICE_NAME.
+        * Add to the `docker-compose.yml`
+        ```yaml
+        OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
+        OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
+        OTEL_SERVICE_NAME: "backend-flask"
+
+        ```
+        * In terminal, set env variable `HONEYCOMB_API_KEY`
+        ```sh
+        export HONEYCOMB_API_KEY=<api_key>
+        gp env HONEYCOMB_API_KEY="<api_key>"  # for gitpos set this env var for each workspace automatically
+        ```
+        * Run these to restart the containers
+        ```sh
+        docker compose down
+        docker compose up
+        ```
+        * Visit the backend url `<base_url>/api/activities/home`, and observe traces appearing in Honeycomb UI.
+        ![image](https://user-images.githubusercontent.com/71969513/225817916-9a35cd06-13e8-4f49-8ec7-77515963e956.png)
 
 * How to observe via Trace in HoneyComb
-  * Add multiple level span and add attributes for a span
+    * Add multiple level span and add attributes for a span
     ```python
     tracer = trace.get_tracer("home.activities")
 
@@ -108,12 +108,13 @@ The header x-honeycomb-team is your API key. Your service name will be used as t
           span = trace.get_current_span()
           span.set_attribute("app.now", now.isoformat())
     ```
-  * Observe latency in traces. Learn from [here](https://www.honeycomb.io/resources/intro-to-o11y-topic-11-using-group-by-with-a-heatmap)
-    * Use `HEATMAP(duration_ms)` and `P90(duration_ms)` or `MAX(duration_ms)` as VISUALIZE and GROUP BY `http.url` to see latency of the traces.
-    ![image](https://user-images.githubusercontent.com/71969513/225839045-b408d524-80d6-434b-abb3-588ef5d48844.png)
+    * Observe latency in traces. Learn from [here](https://www.honeycomb.io/resources/intro-to-o11y-topic-11-using-group-by-with-a-heatmap)
+        * Use `HEATMAP(duration_ms)` and `P90(duration_ms)` or `MAX(duration_ms)` as VISUALIZE and GROUP BY `http.url` to see latency of the traces.
+        ![image](https://user-images.githubusercontent.com/71969513/225839045-b408d524-80d6-434b-abb3-588ef5d48844.png)
 
-    ![image](https://user-images.githubusercontent.com/71969513/225838867-5ec3f718-6c48-4303-99ee-6c397a178623.png)
-  * [Doc: working with your data:tracing](https://docs.honeycomb.io/working-with-your-data/tracing/)
+        ![image](https://user-images.githubusercontent.com/71969513/225838867-5ec3f718-6c48-4303-99ee-6c397a178623.png)
+    * [Doc: working with your data:tracing](https://docs.honeycomb.io/working-with-your-data/tracing/)
+
 ## Watched YT video about Spending Considerations by Chirag. Finished the quiz.
 ## Watched YT video about Observability Security Considerations by Ashish. Finished the quiz.
 ## Watching YT video about AWS X-Ray
