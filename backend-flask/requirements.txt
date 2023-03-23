@@ -8,3 +8,6 @@ opentelemetry-instrumentation-requests
 aws-xray-sdk
 # For sending logs to AWS CloudWatch Logs
 watchtower
+# For Rollbar
+blinker
+rollbar
