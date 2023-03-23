@@ -3,6 +3,13 @@
 ## Learn **what is observability**
 * https://www.honeycomb.io/resources/intro-to-o11y-topic-1-what-is-observability
 * Watched other Training Videos
+* [The Three Pillars of Observability](https://www.oreilly.com/library/view/distributed-systems-observability/9781492033431/ch04.html)
+    > **Event Logs**: An **event log** is an immutable, timestamped record of discrete events that happened over time. Event logs in general come in three forms but are fundamentally the same: a timestamp and a payload of some context. The three forms are: Plaintext, Structured (i.e. JSON), Binary.
+
+    > **Metrics**: **Metrics** are a numeric representation of data measured over intervals of time. Metrics can harness the power of mathematical modeling and prediction to derive knowledge of the behavior of a system over intervals of time in the present and future.
+
+    > **Tracing**: A **trace** is a representation of a series of causally related distributed events that encode the end-to-end request flow through a distributed system.
+
 * Document: [Learn About Observability](https://docs.honeycomb.io/concepts/learning-about-observability/)
     - [What is Observability? ](https://docs.honeycomb.io/concepts/learning-about-observability/#what-is-observability)
       > Observability is about being able to ask arbitrary questions about your environment without having to know ahead of time what you wanted to ask.
