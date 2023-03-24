@@ -338,6 +338,9 @@
     ![image](https://user-images.githubusercontent.com/71969513/227075835-351b9149-7bc7-4f28-937d-f85c2f1073b3.png)
 
 ## Integrate Rollbar to Flask application
+
+This is included in [my blog](https://binli.hashnode.dev/integrate-rollbar-to-flask-application).
+
 ### What is [Rollbar](https://rollbar.com/)
 > Rollbar is a cloud-based error tracking and debugging tool used in web development. It provides real-time monitoring of errors, exceptions, and logs that occur in web applications and services, allowing developers to quickly identify and fix issues before they cause problems for users.
 
