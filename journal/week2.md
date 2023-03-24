@@ -125,135 +125,174 @@
 
 ## Watched YT video about Spending Considerations by Chirag. Finished the quiz.
 ## Watched YT video about Observability Security Considerations by Ashish. Finished the quiz.
-## Watching YT video about AWS X-Ray
-  * Boto3: AWS SDK for Python
-  * Actually we don't use boto3 directly. We use a Python library `aws-xray-sdk`. So add it to the `requirements.txt`
+
+## Integrate AWS X-Ray to the Flask application for tracing
+* Boto3: AWS SDK for Python
+* Actually we don't use boto3 directly. We use a Python library `aws-xray-sdk`. So add it to the `requirements.txt`
     ```sh
     ... ...
     opentelemetry-instrumentation-requests
     aws-xray-sdk
     ```
-  * What is a middleware?
-    * > In a web backend framework, middleware refers to a software component that sits between the server and the application logic, providing a set of common services or functions that can be shared across different parts of the application.
+    
+    Run this command in a terminal to install the libraries for local development
+    ```sh
+    pip install -r requirements.txt
+    ```
+    
+* What is a middleware?
 
-      > Middleware is used to handle tasks such as authentication, logging, caching, and request/response processing. It allows developers to modularize their code and separate concerns, making it easier to maintain and scale their applications.
+    > In a web backend framework, middleware refers to a software component that sits between the server and the application logic, providing a set of common services or functions that can be shared across different parts of the application.
+    > 
+    > Middleware is used to handle tasks such as authentication, logging, caching, and request/response processing. It allows developers to modularize their code and separate concerns, making it easier to maintain and scale their applications.
+    > 
+    > Middleware functions can be chained together to create a pipeline that processes requests and responses in a specific order. Each middleware function in the pipeline can modify the request or response, or terminate the pipeline by returning a response to the client.
+    > 
+    > Web frameworks such as Express.js, Django, and Ruby on Rails all provide built-in middleware that can be used out-of-the-box, and developers can also create their own custom middleware to handle specific application requirements.
+ 
+* Add code in `app.py` to instruct for X-RAY
+    ```python
+    from aws_xray_sdk.core import xray_recorder
+    from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
 
-      > Middleware functions can be chained together to create a pipeline that processes requests and responses in a specific order. Each middleware function in the pipeline can modify the request or response, or terminate the pipeline by returning a response to the client.
+    xray_url = os.getenv("AWS_XRAY_URL")
+    xray_recorder.configure(service='Cruddur', dynamic_naming=xray_url)
+    XRayMiddleware(app, xray_recorder)
+    ```
+* Use AWS CLI to create a group for X-RAY
+    ```sh
+    $ aws xray create-group    --group-name "Cruddur"    --filter-expression "service(\"backend-flask\")"
+    {
+        "Group": {
+            "GroupName": "Cruddur",
+            "GroupARN": "arn:aws:xray:ap-southeast-2:461075076403:group/Cruddur/ELVUCCCTCVRE7VMACDBN3ST2HQ3NVW73EGPW6JUYMDJZH3VKJ3ZA",
+            "FilterExpression": "service(\"backend-flask\")",
+            "InsightsConfiguration": {
+                "InsightsEnabled": false,
+                "NotificationsEnabled": false
+            }
+        }
+    }
+    ```
+    ![image](https://user-images.githubusercontent.com/71969513/226273644-153a5073-d106-4019-a625-f0d10fd92d45.png)
 
-      > Web frameworks such as Express.js, Django, and Ruby on Rails all provide built-in middleware that can be used out-of-the-box, and developers can also create their own custom middleware to handle specific application requirements.
-   * Add code in `app.py` to instruct for X-RAY
-     ```python
-     from aws_xray_sdk.core import xray_recorder
-     from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
+* Create a sampling rule
+    Add a file `aws/json/xray.json`
+    ```json
+    {
+        "SamplingRule": {
+            "RuleName": "Cruddur",
+            "ResourceARN": "*",
+            "Priority": 9000,
+            "FixedRate": 0.1,
+            "ReservoirSize": 5,
+            "ServiceName": "Cruddur",
+            "ServiceType": "*",
+            "Host": "*",
+            "HTTPMethod": "*",
+            "URLPath": "*",
+            "Version": 1
+        }
+    }
+    ```
 
-     xray_url = os.getenv("AWS_XRAY_URL")
-     xray_recorder.configure(service='Cruddur', dynamic_naming=xray_url)
-     XRayMiddleware(app, xray_recorder)
-     ```
-   * Use AWS CLI to create a group for X-RAY
-     ```sh
-     $ aws xray create-group    --group-name "Cruddur"    --filter-expression "service(\"backend-flask\")"
-      {
-          "Group": {
-              "GroupName": "Cruddur",
-              "GroupARN": "arn:aws:xray:ap-southeast-2:461075076403:group/Cruddur/ELVUCCCTCVRE7VMACDBN3ST2HQ3NVW73EGPW6JUYMDJZH3VKJ3ZA",
-              "FilterExpression": "service(\"backend-flask\")",
-              "InsightsConfiguration": {
-                  "InsightsEnabled": false,
-                  "NotificationsEnabled": false
-              }
-          }
-      }
-      ```
-      ![image](https://user-images.githubusercontent.com/71969513/226273644-153a5073-d106-4019-a625-f0d10fd92d45.png)
+    ```sh
+    $ aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
+    {
+        "SamplingRuleRecord": {
+            "SamplingRule": {
+                "RuleName": "Cruddur",
+                "RuleARN": "arn:aws:xray:ap-southeast-2:461075076403:sampling-rule/Cruddur",
+                "ResourceARN": "*",
+                "Priority": 9000,
+                "FixedRate": 0.1,
+                "ReservoirSize": 5,
+                "ServiceName": "backend-flask",
+                "ServiceType": "*",
+                "Host": "*",
+                "HTTPMethod": "*",
+                "URLPath": "*",
+                "Version": 1,
+                "Attributes": {}
+            },
+            "CreatedAt": "2023-03-20T07:37:58+00:00",
+            "ModifiedAt": "2023-03-20T07:37:58+00:00"
+        }
+    }
+    ```
 
-   * Create a sampling rule
-     ```sh
-     $ aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
-     {
-          "SamplingRuleRecord": {
-              "SamplingRule": {
-                  "RuleName": "Cruddur",
-                  "RuleARN": "arn:aws:xray:ap-southeast-2:461075076403:sampling-rule/Cruddur",
-                  "ResourceARN": "*",
-                  "Priority": 9000,
-                  "FixedRate": 0.1,
-                  "ReservoirSize": 5,
-                  "ServiceName": "backend-flask",
-                  "ServiceType": "*",
-                  "Host": "*",
-                  "HTTPMethod": "*",
-                  "URLPath": "*",
-                  "Version": 1,
-                  "Attributes": {}
-              },
-              "CreatedAt": "2023-03-20T07:37:58+00:00",
-              "ModifiedAt": "2023-03-20T07:37:58+00:00"
-          }
-      }
-     ```
-   * Add daemon service to Docker Compose
-     ```yml
-     xray-daemon:
-       image: "amazon/aws-xray-daemon"
-       environment:
-         AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
-         AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
-         AWS_REGION: "ap-southeast-2"
-       command:
-         - "xray -o -b xray-daemon:2000"
-       ports:
-         - 2000:2000/udp
-     ```
-     Add two env vars to backend-flask in `docker-compose.yml` file
+* Add daemon service to Docker Compose
+    ```yml
+    xray-daemon:
+      image: "amazon/aws-xray-daemon"
+      environment:
+        AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+        AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+        AWS_REGION: "us-east-1"
+      command:
+        - "xray -o -b xray-daemon:2000"
+      ports:
+        - 2000:2000/udp
+    ```
+    
+    Add two env vars to backend-flask in `docker-compose.yml` file
 
-     ```yml
-     AWS_XRAY_URL: "*4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}*"
-     AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
-     ```
-   * Add segments to X-RAY
-     > The AWS X-Ray SDK for Python provides a predefined decorator that can be used to instrument Flask application endpoints. The decorator is called `xray_recorder.capture()` and it can be used to automatically trace your endpoint function with an X-Ray segment.
+    ```yml
+    AWS_XRAY_URL: "*4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}*"
+    AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
+    ```
+    
+* Add segments to X-RAY
+    > The AWS X-Ray SDK for Python provides a predefined decorator that can be used to instrument Flask application endpoints. The decorator is called `xray_recorder.capture()` and it can be used to automatically trace your endpoint function with an X-Ray segment.
 
-     > Here's an example of how to use the xray_recorder.capture() decorator:
-       ```python
-       from flask import Flask
-       from aws_xray_sdk.core import xray_recorder
+    > Here's an example of how to use the xray_recorder.capture() decorator:
+    ```python
+    from flask import Flask
+    from aws_xray_sdk.core import xray_recorder
 
-       app = Flask(__name__)
+    app = Flask(__name__)
 
-       @app.route('/example_endpoint')
-       @xray_recorder.capture('example_endpoint')
-       def example_endpoint():
-           # Your code here
-           return 'Hello, World!'
-       ```
-     > In this example, we apply the xray_recorder.capture() decorator to our example_endpoint() function. We provide a name for the segment as an argument to the decorator.
-     > When the endpoint function is called, the xray_recorder.capture() decorator automatically creates a new X-Ray segment with the provided name, records the start and end times of the segment, and captures any subsegments or metadata associated with the endpoint's execution.
-     > The xray_recorder.capture() decorator can be a convenient way to add X-Ray tracing to your Flask application without having to manually create and manage X-Ray segments in your code.
-     * Add the decorator to the home activity endpoint
-       ```python
-       @app.route("/api/activities/home", methods=['GET'])
-       @xray_recorder.capture('home_endpoint')
-       def data_home():
-         data = HomeActivities.run()
-         return data, 200
-       ```
-       ![image](https://user-images.githubusercontent.com/71969513/226574042-1e1a0370-facc-40c0-ab44-ba8f0b1aae39.png)
-     * No need to call `xray_recorder.begin_segment` explicitely when using `xray_recorder.capture()` decorator
-       > It's worth noting that using begin_segment() and end_segment() can be more error-prone and less convenient than using the capture() decorator or the in_segment() context manager. These methods automatically manage the lifecycle of segments and subsegments for you, making it easier to trace the execution of your code without introducing potential bugs.
-   * Add subsegments
-     * You may use `xray_recorder.begin_subsegment()` to add a subsegment. But remember to use **`xray_recorder.end_subsegment()`** to close it. Otherwise it doesn't work.
-     * Or alternatively, you may use `xray_recorder.in_subsegment()` context manager
-       ```python
-       with xray_recorder.in_subsegment('subsegment_mock') as subsegment_mock:
-         dict = {
-           "now": now.isoformat(),
-           "results-size": len(model['data'])
-         }
-         subsegment_mock.put_metadata('key', dict, 'namespace')
-       ```
-     ![image](https://user-images.githubusercontent.com/71969513/226806671-72d34e7c-fdb5-41f0-8bb5-4ed4435d2e47.png)
+    @app.route('/example_endpoint')
+    @xray_recorder.capture('example_endpoint')
+    def example_endpoint():
+       # Your code here
+       return 'Hello, World!'
+    ```
+    > In this example, we apply the xray_recorder.capture() decorator to our example_endpoint() function. We provide a name for the segment as an argument to the decorator.
+    > 
+    > When the endpoint function is called, the xray_recorder.capture() decorator automatically creates a new X-Ray segment with the provided name, records the start and end times of the segment, and captures any subsegments or metadata associated with the endpoint's execution.
+    > 
+    > The xray_recorder.capture() decorator can be a convenient way to add X-Ray tracing to your Flask application without having to manually create and manage X-Ray segments in your code.
+ 
+    * Add the decorator to the home activity endpoint
+        ```python
+        @app.route("/api/activities/home", methods=['GET'])
+        @xray_recorder.capture('home_endpoint')
+        def data_home():
+            data = HomeActivities.run()
+            return data, 200
+        ```
+       
+        The segment `home_endpoint` is added.
+        ![image](https://user-images.githubusercontent.com/71969513/226574042-1e1a0370-facc-40c0-ab44-ba8f0b1aae39.png)
+       
+        * No need to call `xray_recorder.begin_segment` explicitely when using `xray_recorder.capture()` decorator
+            > It's worth noting that using begin_segment() and end_segment() can be more error-prone and less convenient than using the capture() decorator or the in_segment() context manager. These methods automatically manage the lifecycle of segments and subsegments for you, making it easier to trace the execution of your code without introducing potential bugs.
 
+* Add subsegments
+    * You may use `xray_recorder.begin_subsegment()` to add a subsegment. But remember to use **`xray_recorder.end_subsegment()`** to close it. Otherwise it doesn't work.
+    * Or alternatively, you may use `xray_recorder.in_subsegment()` context manager
+    ```python
+    with xray_recorder.in_subsegment('subsegment_mock') as subsegment_mock:
+        dict = {
+            "now": now.isoformat(),
+            "results-size": len(model['data'])
+        }
+        subsegment_mock.put_metadata('key', dict, 'namespace')
+    ```
+    
+    The subsegment `subsegment_mock` is added.
+    ![image](https://user-images.githubusercontent.com/71969513/226806671-72d34e7c-fdb5-41f0-8bb5-4ed4435d2e47.png)
 
 ## Send logs to AWS CloudWatch Logs - following [YouTube video](https://www.youtube.com/watch?v=ipdFizZjOF4&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=34) (This is included in [my blog](https://binli.hashnode.dev/send-logs-to-aws-cloudwatch-in-python))
 ### [What is AWS CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html)
