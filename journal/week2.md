@@ -1,5 +1,7 @@
 # Week 2 — Observability of Distributed System
 
+**[A series of blogs](https://binli.hashnode.dev/series/distributed-observability)** were written for some of what I learnt this week. 
+
 ## Learn **what is observability**
 * https://www.honeycomb.io/resources/intro-to-o11y-topic-1-what-is-observability
 * Watched other Training Videos
@@ -127,11 +129,12 @@
 ## Watched YT video about Observability Security Considerations by Ashish. Finished the quiz.
 
 ## Integrate AWS X-Ray to the Flask application for tracing
-* Boto3: AWS SDK for Python
-* Actually we don't use boto3 directly. We use a Python library `aws-xray-sdk`. So add it to the `requirements.txt`
+* AWS X-Ray SDK for Python
+
+    [GitHub Repo](https://github.com/aws/aws-xray-sdk-python)
+    
+    Add library `aws-xray-sdk` to the `requirements.txt`
     ```sh
-    ... ...
-    opentelemetry-instrumentation-requests
     aws-xray-sdk
     ```
     
@@ -150,10 +153,12 @@
     > 
     > Web frameworks such as Express.js, Django, and Ruby on Rails all provide built-in middleware that can be used out-of-the-box, and developers can also create their own custom middleware to handle specific application requirements.
  
-* Add code in `app.py` to instruct for X-RAY
+* Add code in `app.py` to add X-Ray Flask middleware to instruct for X-RAY
     ```python
     from aws_xray_sdk.core import xray_recorder
     from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
+
+    app = Flask(__name__)
 
     xray_url = os.getenv("AWS_XRAY_URL")
     xray_recorder.configure(service='Cruddur', dynamic_naming=xray_url)
@@ -174,6 +179,8 @@
         }
     }
     ```
+    
+    The group `Cruddur` is created.
     ![image](https://user-images.githubusercontent.com/71969513/226273644-153a5073-d106-4019-a625-f0d10fd92d45.png)
 
 * Create a sampling rule
@@ -235,7 +242,7 @@
         - 2000:2000/udp
     ```
     
-    Add two env vars to backend-flask in `docker-compose.yml` file
+    Add two env vars to `backend-flask` in `docker-compose.yml` file
 
     ```yml
     AWS_XRAY_URL: "*4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}*"
@@ -244,7 +251,7 @@
     
 * Add segments to X-RAY
     > The AWS X-Ray SDK for Python provides a predefined decorator that can be used to instrument Flask application endpoints. The decorator is called `xray_recorder.capture()` and it can be used to automatically trace your endpoint function with an X-Ray segment.
-
+    >
     > Here's an example of how to use the xray_recorder.capture() decorator:
     ```python
     from flask import Flask
