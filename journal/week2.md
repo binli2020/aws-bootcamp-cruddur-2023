@@ -45,7 +45,7 @@
 ## About login to the app
 * Looks like everytime need to **sign up** with a dummy email and use `1234` as the reference code
  
-## Watching YT video of the living session about using Honeycomb for Distributed Tracing
+## Using Honeycomb for Distributed Tracing
 * Jessica: use different Dockerfile for 'development' and 'production' containers.
   - 'development' container needs a base image with more utilities installed
   - 'production' container needs a slimmer base image without, i.e. vim, ssh, to make it smaller in size and securer.
@@ -128,7 +128,8 @@
 ## Watched YT video about Spending Considerations by Chirag. Finished the quiz.
 ## Watched YT video about Observability Security Considerations by Ashish. Finished the quiz.
 
-## Integrate AWS X-Ray to the Flask application for tracing
+## Integrate AWS X-Ray to the Flask application for tracing (This is included in [my blog](https://binli.hashnode.dev/distributed-tracing-with-aws-xray-in-flask-application))
+
 * AWS X-Ray SDK for Python
 
     [GitHub Repo](https://github.com/aws/aws-xray-sdk-python)
