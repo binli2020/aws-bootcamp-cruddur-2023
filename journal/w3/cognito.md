@@ -17,4 +17,4 @@ See the diagram for a common Amazon Cognito scenario. Here the goal is to authen
 
 3. Your app user can then use those AWS credentials to access other AWS services such as Amazon S3 or DynamoDB.
 
-![diagram of common Amazon Cognito scenario](img/scenario-cup-cib2.png)
+![diagram of common Amazon Cognito scenario](https://user-images.githubusercontent.com/71969513/227809831-9959e71d-fb78-42e9-bc2e-f090dba4103f.png)
