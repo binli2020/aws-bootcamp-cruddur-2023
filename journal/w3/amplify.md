@@ -39,3 +39,14 @@ Amplify.configure({
   }
 });
 ```
+
+Set related environment variables in `frontend-react-js` service in the `docker-compose.yml`
+```sh
+  frontend-react-js:
+    environment:
+      ... ...
+      REACT_APP_AWS_PROJECT_REGION: "${AWS_DEFAULT_REGION}"
+      REACT_APP_AWS_COGNITO_REGION: "${AWS_DEFAULT_REGION}"
+      REACT_APP_AWS_USER_POOLS_ID: "..."
+      REACT_APP_CLIENT_ID: "..."
+```
