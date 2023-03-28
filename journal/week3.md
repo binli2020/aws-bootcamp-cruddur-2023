@@ -6,4 +6,4 @@
 
 ## [AWS Amplify](w3/amplify.md)
 
-## [Sign In Page](w3/signin.md)
+## [Sign In/Sign Up/Confirmation/Recover Pages](w3/signin.md)
