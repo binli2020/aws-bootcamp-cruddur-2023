@@ -13,7 +13,8 @@
 			"extensions": [
 				"ms-azuretools.vscode-docker",
 				"ms-python.python",
-				"vscodevim.vim"
+				"vscodevim.vim",
+				"cweijan.vscode-postgresql-client2"
 			],
 			"settings": {
 				"terminal.integrated.fontSize": 20,
