@@ -10,8 +10,7 @@ Step 0
 
 Step 1 Configure sign-in experience
 
-![image](https://user-images.githubusercontent.com/71969513/227809772-b29256be-6d72-4f45-afb5-9de1b76fb36c.png)
-
+![image](https://user-images.githubusercontent.com/71969513/228128009-7ea6627e-12da-4647-b637-0d0d5a229fa3.png)
 
 Step 2 Configure security requirements
 
