@@ -5,3 +5,6 @@ Configure and Use GitHub Codespace
 > 
 > Each codespace you create is hosted by GitHub in a Docker container, running on a virtual machine. You can choose from a selection of virtual machine types, from 2 cores, 8 GB RAM, and 32 GB storage, up to 32 cores, 64 GB RAM, and 128 GB storage.
 
+# Create a Codespace
+From you repo in GitHub, click `< > Code` button, then create the `+` button to create a Codespace.
+![image](https://user-images.githubusercontent.com/71969513/228438846-defd36f2-3332-4e22-bd44-2aeacbd7a561.png)
