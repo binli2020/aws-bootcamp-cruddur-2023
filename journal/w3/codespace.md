@@ -142,6 +142,11 @@ I end up using the following `devcontainer.json`
 	```json
 	"postCreateCommand": "cd frontend-react-js; npm install",
 	```
+	
+* Each time `devcontainer.json` file is changed, need to rebuild the codespace container.
+
+	![image](https://user-images.githubusercontent.com/71969513/228476457-0620ecb7-5f9a-4e9b-b35f-33c592d85bd4.png)
+
 * Update the environment variables names in URLs in `docker-compose.yml`
 
 	```sh
