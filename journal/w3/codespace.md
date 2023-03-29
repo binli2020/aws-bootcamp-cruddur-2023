@@ -96,4 +96,33 @@ I end up using the following `devcontainer.json`
     Unable to locate credentials. You can configure credentials by running "aws configure".
     ```
 
+	The following environment variables need be set
+	```sh
+	export AWS_ACCESS_KEY_ID=...
+	export AWS_SECRET_ACCESS_KEY=...
+	export AWS_DEFAULT_REGION=ap-southeast-2
+	```
+	
     * Use `Codespace Manager User Secrets` to set up the AWS credentials
+    
+1. Use the following steps to set up for each of the environment variables.
+
+	![image](https://user-images.githubusercontent.com/71969513/228472721-22c31566-3e5c-4b6e-8b23-13f8d583b038.png)
+
+    ![image](https://user-images.githubusercontent.com/71969513/228473155-94989c82-3314-4704-9446-cd91d0883c2b.png)
+
+	![image](https://user-images.githubusercontent.com/71969513/228475121-5016b146-0602-44a6-9760-7121db20753d.png)
+
+	![image](https://user-images.githubusercontent.com/71969513/228475343-8c203d9b-a802-44cf-b030-f57e2fa84302.png)
+
+2. Then rebuild the codespace container of the codespace
+    
+	![image](https://user-images.githubusercontent.com/71969513/228476457-0620ecb7-5f9a-4e9b-b35f-33c592d85bd4.png)
+
+3. Verify the env vars are set after the codespace rebuild
+    
+	![image](https://user-images.githubusercontent.com/71969513/228483534-367dad05-fc9a-4fee-b4f3-cafef9bd8de8.png)
+	
+4. It can also be seen in the [github codespace settings](https://github.com/settings/codespaces)
+
+	![image](https://user-images.githubusercontent.com/71969513/228484159-4689d739-f7d8-4d9f-95b1-36864ebc005e.png)
