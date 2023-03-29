@@ -1,12 +1,12 @@
-Configure and Use GitHub Codespace
+Configure and Use GitHub Codespaces
 
-# [What is GitHub Codespace](https://docs.github.com/en/codespaces/overview)
+# [What is GitHub Codespaces](https://docs.github.com/en/codespaces/overview)
 > A codespace is a development environment that's hosted in the cloud. You can customize your project for GitHub Codespaces by committing [configuration files](https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers) to your repository (often known as Configuration-as-Code), which creates a repeatable codespace configuration for all users of your project.
 > 
 > Each codespace you create is hosted by GitHub in a Docker container, running on a virtual machine. You can choose from a selection of virtual machine types, from 2 cores, 8 GB RAM, and 32 GB storage, up to 32 cores, 64 GB RAM, and 128 GB storage.
 
-# Create a Codespace
-From you repo in GitHub, click `< > Code` button, then create the `+` button to create a Codespace.
+# Create a Codespaces
+From you repo in GitHub, click `< > Code` button, then create the `+` button to create a Codespaces.
 
 ![image](https://user-images.githubusercontent.com/71969513/228438846-defd36f2-3332-4e22-bd44-2aeacbd7a561.png)
 
@@ -18,7 +18,7 @@ The codespace is created
 
 ![image](https://user-images.githubusercontent.com/71969513/228444090-8bc8fda5-4e1f-4fcb-ab45-c45a50e9bef9.png)
 
-# Configure Codespace
+# Configure Codespaces
 
 > When you work in a codespace, the environment you are working in is created using a development container, or dev container, hosted on a virtual machine.
 > 
@@ -80,7 +80,7 @@ I end up using the following `devcontainer.json`
 
 * For the VIM VSCode Extension, it has to be installed locally in my browser. So I remove it from `devcontainer.json`
 
-    If it is already installed in Codespace container, the way to make vim working is: 
+    If it is already installed in a Codespaces container, the way to make vim working is: 
 
     1. Uninstall it
     2. Reload the codespace
@@ -103,7 +103,7 @@ I end up using the following `devcontainer.json`
 	export AWS_DEFAULT_REGION=ap-southeast-2
 	```
 	
-    * Use `Codespace Manage User Secrets` to set up the AWS credentials
+    * Use `Codespaces Manage User Secrets` to set up the AWS credentials
     
 	1. Use the following steps to set up for each of the environment variables.
 
@@ -134,4 +134,18 @@ I end up using the following `devcontainer.json`
 		"remoteEnv": {
 			"AWS_CLI_AUTO_PROMPT": "on-partial"
 		},
+	```
+
+* Update the environment variables names in URLs in `docker-compose.yml`
+
+	```sh
+	FRONTEND_URL: "https://${CODESPACE_NAME}-3000.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"
+	BACKEND_URL: "https://${CODESPACE_NAME}-4567.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"
+	```
+
+	```sh
+	$ echo $CODESPACE_NAME
+	binli2020-orange-space-palm-tree-9wr6pjrg6vgfx4rq
+	$ echo $GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN
+	preview.app.github.dev
 	```
