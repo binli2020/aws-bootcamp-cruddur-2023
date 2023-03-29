@@ -137,7 +137,7 @@ I end up using the following `devcontainer.json`
 		},
 	```
 
-* Use `postCreateCommand` to run command when codespace container is up, i.e. `npm install`
+* Use `postCreateCommand` to run commands when a codespace container is up, i.e. `npm install`
 
 	```json
 	"postCreateCommand": "cd frontend-react-js; npm install",
@@ -155,3 +155,5 @@ I end up using the following `devcontainer.json`
 	$ echo $GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN
 	preview.app.github.dev
 	```
+
+This `devcontainer.json` was verified to be able to setup the GitHub Codespaces well.
