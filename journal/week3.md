@@ -7,3 +7,5 @@
 ## [AWS Amplify](w3/amplify.md)
 
 ## [Sign In/Sign Up/Confirmation/Recover Pages](w3/signin.md)
+
+## [Configure and Use GitHub Codespace](w3/codespace.md)
