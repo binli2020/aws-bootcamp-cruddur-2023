@@ -48,7 +48,8 @@ I end up using the following `devcontainer.json`
 	},
 	"remoteEnv": {
 		"AWS_CLI_AUTO_PROMPT": "on-partial"
-	},	
+	},
+	"postCreateCommand": "cd frontend-react-js; npm install",
 	"customizations": {
 		"vscode": {
 			"extensions": [
@@ -136,6 +137,11 @@ I end up using the following `devcontainer.json`
 		},
 	```
 
+* Use `postCreateCommand` to run command when codespace container is up, i.e. `npm install`
+
+	```json
+	"postCreateCommand": "cd frontend-react-js; npm install",
+	```
 * Update the environment variables names in URLs in `docker-compose.yml`
 
 	```sh
