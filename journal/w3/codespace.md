@@ -33,3 +33,67 @@ The codespace is created
 > The configuration files for a dev container are contained in a .devcontainer directory in your repository. You can use Visual Studio Code to add configuration files for you. You can choose from a selection of predefined configurations for various project types. You can use these without further configuration, or you can edit the configurations to refine the development environment they produce. For more information, see ["Using a predefined dev container configuration."](https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers#using-a-predefined-dev-container-configuration)
 > 
 > Alternatively, you can add your own custom configuration files. For more information, see ["Creating a custom dev container configuration."](https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers#creating-a-custom-dev-container-configuration)
+
+## My configuration file
+
+I end up using the following `devcontainer.json`
+
+```json
+{
+	"name": "Cruddur Configuration",
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	"features": {
+		"ghcr.io/devcontainers/features/aws-cli:1": {}
+	},
+	"remoteEnv": {
+		"AWS_CLI_AUTO_PROMPT": "on-partial"
+	},	
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-azuretools.vscode-docker",
+				"ms-python.python",
+				"cweijan.vscode-postgresql-client2",
+				"zaaack.markdown-editor"
+				// "vscodevim.vim"
+			],
+			"settings": {
+				"terminal.integrated.fontSize": 18,
+				"editor.fontSize": 18,
+				"workbench.colorTheme": "Default Dark+ Experimental"
+			}
+		}
+	}
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Configure tool-specific properties.
+	// "customizations": {},
+
+	// Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "devcontainer"
+}
+```
+
+### Some issues with the configuration
+
+* For the VIM VSCode Extension, it has to be installed locally in my browser. So I remove it from `devcontainer.json`
+
+    If it is already installed in Codespace container, the way to make vim working is: 
+
+    1. Uninstall it
+    2. Reload the codespace
+    3. Install the VIM extension (so it is installed in the local browser)
+
+* AWS credentials
+
+    I haven't set AWS credentials so the following command is failed.
+
+    ```sh
+    $ aws sts get-caller-identity
+
+    Unable to locate credentials. You can configure credentials by running "aws configure".
+    ```
+
+    * Use `Codespace Manager User Secrets` to set up the AWS credentials
