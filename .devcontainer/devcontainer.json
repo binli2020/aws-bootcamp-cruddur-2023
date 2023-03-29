@@ -15,7 +15,9 @@
 				"ms-python.python",
 				"vscodevim.vim",
 				"cweijan.vscode-postgresql-client2",
-				"yzhang.markdown-all-in-one"
+				"yzhang.markdown-all-in-one",
+				"DavidAnson.vscode-markdownlint",
+				"zaaack.markdown-editor"
 			],
 			"settings": {
 				"terminal.integrated.fontSize": 20,
