@@ -1,4 +1,6 @@
-# Configure and Use GitHub Codespaces
+# Configure GitHub Codespaces
+
+This content is included in [my blog](https://binli.hashnode.dev/configure-github-codespaces).
 
 # [What is GitHub Codespaces](https://docs.github.com/en/codespaces/overview)
 > A codespace is a development environment that's hosted in the cloud. You can customize your project for GitHub Codespaces by committing [configuration files](https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers) to your repository (often known as Configuration-as-Code), which creates a repeatable codespace configuration for all users of your project.
