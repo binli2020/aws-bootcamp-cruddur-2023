@@ -7,4 +7,9 @@ Configure and Use GitHub Codespace
 
 # Create a Codespace
 From you repo in GitHub, click `< > Code` button, then create the `+` button to create a Codespace.
+
 ![image](https://user-images.githubusercontent.com/71969513/228438846-defd36f2-3332-4e22-bd44-2aeacbd7a561.png)
+
+The codespace is being created ...
+
+![image](https://user-images.githubusercontent.com/71969513/228441067-27d21877-30da-4230-a790-ce2d438601e5.png)
