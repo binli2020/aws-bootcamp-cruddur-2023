@@ -8,7 +8,7 @@
 
 ## [Sign In/Sign Up/Confirmation/Recover Pages](w3/signin.md)
 
-## [Verify JWT Server Side](w3/jwt_server_side.md)
+## [Verify JWT Server Side](w3/verifyjwt_server_side.md)
 
 ## [Configure GitHub Codespaces](w3/codespace.md)
 
