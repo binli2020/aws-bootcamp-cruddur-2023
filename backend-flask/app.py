@@ -36,6 +36,9 @@ import watchtower
 import logging
 from time import strftime
 
+# For Cognito JWT token
+from lib.cognito_jwt_token import CognitoJwtToken, TokenVerifyError
+
 # Configure logger to use CloudWatch
 LOGGER = logging.getLogger(__name__)
 LOGGER.setLevel(logging.DEBUG) 
@@ -72,6 +75,11 @@ XRayMiddleware(app, xray_recorder)
 FlaskInstrumentor().instrument_app(app)
 RequestsInstrumentor().instrument()
 
+jwt_service = CognitoJwtToken(
+  user_pool_id = os.getenv("AWS_COGNITO_USER_POOL_ID"),
+  user_pool_client_id = os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID"),
+  region = os.getenv("AWS_DEFAULT_REGION")
+)
 
 frontend = os.getenv('FRONTEND_URL')
 backend = os.getenv('BACKEND_URL')
@@ -152,8 +160,17 @@ def data_create_message():
 @app.route("/api/activities/home", methods=['GET'])
 @xray_recorder.capture('home_endpoint')
 def data_home():
-  jwt_token = request.headers.get("Authorization")
-  app.logger.debug(f"Auth token: {jwt_token}")
+  auth_header = request.headers.get("Authorization")
+  # app.logger.debug(f"Auth token: {auth_header}")
+
+  access_token = CognitoJwtToken.extract_access_token(auth_header)
+  try:
+      claims = jwt_service.verify(access_token)
+      # g.cognito_claims = claims
+      app.logger.debug(f"Authenticated")
+      app.logger.debug(f"Claims: {claims}")
+  except TokenVerifyError as e:
+      app.logger.debug(f"Unauthenticated")
 
   data = HomeActivities.run(LOGGER)
   return data, 200

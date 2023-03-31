@@ -11,3 +11,5 @@ watchtower
 # For Rollbar
 blinker
 rollbar
+# For Cognito JWT verification
+python-jose
