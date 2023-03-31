@@ -1,9 +1,13 @@
 
-# How JWT is verified in the server side
+# Verify Cognito JWT in a Flask Application
 
-# Send the JWT in header in API request
+(This content is included in [my blog](https://binli.hashnode.dev/verify-cognito-jwt-in-a-flask-application))
 
-The JWT is stored in the browser's local storage during signning in.
+Send Cognito JWT from React client side and verify it on the Flask Server Side 
+
+# Send the Cognito JWT in header in API request
+
+The JWT is stored in the browser's local storage during sign-in.
 
 ```js
 Auth.signIn(email, password)
@@ -27,7 +31,7 @@ Get the JWT from the local storage of the browser, and add it as value of `Autho
 ```
 
 
-# Get the JWT from API request in server side
+# Get the JWT from the API request in the server side
 
 ```py
 from flask import request
@@ -38,7 +42,7 @@ def data_home():
   app.logger.debug(f"Auth token: {jwt_token}")
 ```
 
-# Verify the JWT token
+# Verify the Cognito JWT token on the server side
 
 ## Use the codes in [another repo Flask-AWSCognito](https://github.com/cgauge/Flask-AWSCognito)
 
@@ -163,8 +167,14 @@ class CognitoJwtToken:
         return claims
 ```
 
-## Call the code to verify JWT in server side
+## Call the code to verify JWT on the server side
+Need to install a library `python-jose`. Add this line in `requirements.txt`
 
+```sh
+python-jose
+```
+
+Call the code to verify JWT.
 ```py
 # For Cognito JWT token
 from lib.cognito_jwt_token import CognitoJwtToken, TokenVerifyError
@@ -192,4 +202,4 @@ def data_home():
   return data, 200
 ```
 
-Only when the JWT is verified sucessfully, the username in the claims is passed into `HomeActivities.run`. This is the way in the app to distinguish if the user is authenticated.
+Only when the JWT is verified successfully, the username in the claims is passed into `HomeActivities.run`. This is the way in the app to distinguish if the user is authenticated.
