@@ -21,3 +21,6 @@ aws rds create-db-instance \
   --performance-insights-retention-period 7 \
   --no-deletion-protection
   ```
+
+From AWS RDS, it shows a database instance is created.
+![image](https://user-images.githubusercontent.com/71969513/229674360-11299c6f-149d-4ac7-aacb-1b8e6365a7db.png)
