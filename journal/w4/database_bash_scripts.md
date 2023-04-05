@@ -29,6 +29,23 @@ CREATE TABLE public.activities (
 );
 ```
 
+Create a sql file `db/seed.sql`
+```sql
+-- this file was manually created
+INSERT INTO public.users (display_name, handle, cognito_user_id)
+VALUES
+  ('Andrew Brown', 'andrewbrown' ,'MOCK'),
+  ('Andrew Bayko', 'bayko' ,'MOCK');
+
+INSERT INTO public.activities (user_uuid, message, expires_at)
+VALUES
+  (
+    (SELECT uuid from public.users WHERE users.handle = 'andrewbrown' LIMIT 1),
+    'This was imported as seed data!',
+    current_timestamp + interval '10 day'
+  )
+```
+
 Set env vars in terminal
 ```sh
 export CONNECTION_URL="postgresql://postgres:password@127.0.0.1:5432/cruddur"
@@ -45,6 +62,13 @@ Set env vars in the `docker-compose.yml`
 
 Create a `backend-flask/bin` directory.
 Create the following bash scripts in the directory.
+
+`db-connect`: connect to a database
+```sh
+#! /usr/bin/bash
+
+psql $CONNECTION_URL
+```
 
 `db-create`: create a database
 ```sh
@@ -79,4 +103,21 @@ else
 fi
 
 psql $URL cruddur < $schema_path
+```
+
+`db-seed`: load the seed data
+```sh
+#! /usr/bin/bash
+
+seed_path=$(realpath .)/db/seed.sql
+echo $seed_path
+
+if [ "$1" = "prod" ]; then
+  echo "Running in production mode"
+  URL=$PROD_CONNECTION_URL
+else
+  URL=$CONNECTION_URL
+fi
+
+psql $URL cruddur < $seed_path
 ```
