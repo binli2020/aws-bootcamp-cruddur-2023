@@ -1,3 +1,4 @@
+# Create sql files
 
 Create a `db` directory. Create a sql file `db/schema.sql`
 ```sql
@@ -46,6 +47,8 @@ VALUES
   )
 ```
 
+# Set environment variables
+
 Set env vars in terminal
 ```sh
 export CONNECTION_URL="postgresql://postgres:password@127.0.0.1:5432/cruddur"
@@ -59,6 +62,8 @@ Set env vars in the `docker-compose.yml`
       CONNECTION_URL: "${CONNECTION_URL}"
       PROD_CONNECTION_URL: "${PROD_CONNECTION_URL}"
 ```
+
+# Create bash scripts
 
 Create a `backend-flask/bin` directory.
 Create the following bash scripts in the directory.
