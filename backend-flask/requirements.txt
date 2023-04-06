@@ -13,3 +13,7 @@ blinker
 rollbar
 # For Cognito JWT verification
 python-jose
+
+# For PostgreSQL python driver
+psycopg[binary]
+psycopg[pool]
