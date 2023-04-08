@@ -12,7 +12,7 @@
 		"CONNECTION_URL": "postgresql://postgres:password@localhost:5432/cruddur",
 		"PROD_CONNECTION_URL": "postgresql://root:password@cruddur-db-instance.cxc8rqnlqhcd.ap-southeast-2.rds.amazonaws.com:5432/cruddur"
 	},	
-	"postCreateCommand": "export CONNECTION_URL=\"postgresql://postgres:password@localhost:5432/cruddur\"; export PROD_CONNECTION_URL=\"postgresql://root:password@cruddur-db-instance.cxc8rqnlqhcd.ap-southeast-2.rds.amazonaws.com:5432/cruddur\"; export DB_SG_ID=\"sg-04e2bf6197d33fbc3\"; export DB_SG_RULE_ID=\"sgr-07b1e202b52cffe56\"; source \"${THEIA_WORKSPACE_ROOT}/backend-flask/bin/rds-update-sg-rule\"; curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg; echo \"deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main\" |sudo tee  /etc/apt/sources.list.d/pgdg.list; sudo apt update; sudo apt install -y postgresql-client-13 libpq-dev; cd frontend-react-js; npm install",
+	"postCreateCommand": "source \"${THEIA_WORKSPACE_ROOT}/backend-flask/bin/rds-update-sg-rule\"; curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg; echo \"deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main\" |sudo tee  /etc/apt/sources.list.d/pgdg.list; sudo apt update; sudo apt install -y postgresql-client-13 libpq-dev; cd frontend-react-js; npm install",
 	"customizations": {
 		"vscode": {
 			"extensions": [
