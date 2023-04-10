@@ -47,3 +47,14 @@ Add a layer for the lambda function
 ![image](https://user-images.githubusercontent.com/71969513/230814057-683dad83-133b-401d-b594-a8d851584210.png)
 
 For the ARN of the layer, refer to [Psycopg2-lambda-layer on github](https://github.com/jetbridge/psycopg2-lambda-layer) to find the ARN of related region.
+
+Add trigger for the lambda function
+
+In AWS Cognito user pool, under `User pool properties`, add lambda trigger.
+
+![image](https://user-images.githubusercontent.com/71969513/230814576-4734bc2a-648c-40f0-8368-7d8b62386f57.png)
+
+Add lambda trigger
+
+![image](https://user-images.githubusercontent.com/71969513/230814833-93bd85a0-8288-43e5-b533-bb7282c02645.png)
+
