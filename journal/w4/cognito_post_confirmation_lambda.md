@@ -79,5 +79,15 @@ Click "Add permissions", then "Attach polacies", then choose `AWSLambdaVPCAccess
 
 After "Save", the VPC is connected to the lambda.
 
+# Sign up an user in our app
 
+It creates an user in the Cognito user pool, which trigger the lambda function to be called.
+But an error log is observed in CloudWatch.
+```log
+column "email" of relation "users" does not exist
+```
+
+This is because the scheme of the database has not been updated. After updating it, the user creation is successful. And we see the user in the Postgres database `users` table.
+
+![image](https://user-images.githubusercontent.com/71969513/230826104-bdce4ae3-0841-4c08-96f6-e2432da5222d.png)
 
