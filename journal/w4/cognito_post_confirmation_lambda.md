@@ -1,4 +1,4 @@
-Create a AWS lambda function
+# Create a AWS lambda function
 
 ![image](https://user-images.githubusercontent.com/71969513/230805668-afc1b22b-ef02-4860-b4d2-aa1b06206a24.png)
 
@@ -37,18 +37,18 @@ def lambda_handler(event, context):
     return event
 ```
 
-Add environment variable
+# Add environment variable
 
 ![image](https://user-images.githubusercontent.com/71969513/230811659-da2dd966-dfe2-4ae7-a42a-00030803167e.png)
 
 
-Add a layer for the lambda function
+# Add a layer for the lambda function
 
 ![image](https://user-images.githubusercontent.com/71969513/230814057-683dad83-133b-401d-b594-a8d851584210.png)
 
 For the ARN of the layer, refer to [Psycopg2-lambda-layer on github](https://github.com/jetbridge/psycopg2-lambda-layer) to find the ARN of related region.
 
-Add trigger for the lambda function
+# Add trigger for the lambda function
 
 In AWS Cognito user pool, under `User pool properties`, add lambda trigger.
 
@@ -57,4 +57,27 @@ In AWS Cognito user pool, under `User pool properties`, add lambda trigger.
 Add lambda trigger
 
 ![image](https://user-images.githubusercontent.com/71969513/230814833-93bd85a0-8288-43e5-b533-bb7282c02645.png)
+
+# Connect the lambda function to a VPC
+
+## In IAM, Create a policy to be added to the role
+
+![image](https://user-images.githubusercontent.com/71969513/230820753-dca960e7-cb4e-426c-8ca1-162786330471.png)
+
+![image](https://user-images.githubusercontent.com/71969513/230821152-06ad91a9-0a81-4c27-96d9-1de8cfc2a720.png)
+
+## Add and attach a policy `AWSLambdaVPCAccessExecutionRole` to the role of the lambda function, so that the lambda can be connected to a VPC
+
+![image](https://user-images.githubusercontent.com/71969513/230818679-a76e4b57-bc45-4d80-9504-edf82ff3f41c.png)
+
+![image](https://user-images.githubusercontent.com/71969513/230818797-fe19ea8c-c2ee-450b-8052-2d92c202aabb.png)
+
+Click "Add permissions", then "Attach polacies", then choose `AWSLambdaVPCAccessExecutionRole`.
+
+## Connect the lambda function to a VPC
+![image](https://user-images.githubusercontent.com/71969513/230817942-33f0d1f3-8dc5-483b-9ca1-b4381e4299c1.png)
+
+After "Save", the VPC is connected to the lambda.
+
+
 
