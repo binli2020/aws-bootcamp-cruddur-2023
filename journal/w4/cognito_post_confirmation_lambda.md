@@ -40,3 +40,10 @@ def lambda_handler(event, context):
 Add environment variable
 
 ![image](https://user-images.githubusercontent.com/71969513/230811659-da2dd966-dfe2-4ae7-a42a-00030803167e.png)
+
+
+Add a layer for the lambda function
+
+![image](https://user-images.githubusercontent.com/71969513/230814057-683dad83-133b-401d-b594-a8d851584210.png)
+
+For the ARN of the layer, refer to [Psycopg2-lambda-layer on github](https://github.com/jetbridge/psycopg2-lambda-layer) to find the ARN of related region.
